@@ -13,7 +13,7 @@ function install-plugin(){
 if [ ! -f ~/.vimrc ]; then
 	cp .vimrc ~/.vimrc
 else
-	cp ~/.vimrc ~/.vimrc.backup.${date +'%Y%m%d_%H%M'}
+	cp ~/.vimrc ~/.vimrc.backup.$( date +'%Y%m%d_%H%M' )
 	cp .vimrc ~/.vimrc
 fi
 
