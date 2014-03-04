@@ -4,7 +4,7 @@
 function install-plugin(){
 	if [ ! -d ~/.vim/bundle/$1 ]
 	then
-		cp -r ${BASH_IT}/$1 ~/.vim/bundle/$1
+		cp -r ${BASH_IT}/files/vim/$1 ~/.vim/bundle/$1
 	fi	
 }
 
