@@ -9,7 +9,8 @@ if [ -z "$TODOTXT_DEFAULT_ACTION" ]; then
     export TODOTXT_DEFAULT_ACTION=ls       # typing 't' by itself will list current todos
 fi
 if [ -z "$TODO_SRC_DIR" ]; then
-    export TODO_SRC_DIR=$BASH_IT/plugins/available/todo
+    #export TODO_SRC_DIR=$BASH_IT/plugins/available/todo
+    export TODO_SRC_DIR=$BASH_IT/files/todo
 fi
 
 # respect ENV var set in .bash_profile, default is 't'
