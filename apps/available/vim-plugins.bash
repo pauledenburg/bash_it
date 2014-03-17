@@ -2,8 +2,8 @@
 #
 # This file is executed everytime the user logs in (and this app is enabled)
 
-# backup the .vim directory if it already exists
-if [ -d ~/.vim ]
+# backup the .vim directory if it already exists and when it's not a symlink
+if [[ -d ~/.vim && ! -h ~/.vim ]]
 then
 	mv ~/.vim ~/.vim.backup
 fi
