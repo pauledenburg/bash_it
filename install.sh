@@ -9,25 +9,6 @@ cp $HOME/.bash_it/template/bash_profile.template.bash $HOME/.bash_profile
 
 echo "Copied the template .bash_profile into ~/.bash_profile, edit this file to customize bash-it"
 
-#while true
-#do
-  #read -p "Do you use Jekyll? (If you don't know what Jekyll is, answer 'n') [Y/N] " RESP
-#
-  #case $RESP
-    #in
-    #[yY])
-      #cp $HOME/.bash_it/template/jekyllconfig.template.bash $HOME/.jekyllconfig
-      #echo "Copied the template .jekyllconfig into your home directory. Edit this file to customize bash-it for using the Jekyll plugins"
-      #break
-      #;;
-    #[nN])
-      #break
-      #;;
-    #*)
-      #echo "Please enter Y or N"
-  #esac
-#done
-
 platform='unknown'
 unamestr=`uname`
 if [[ "$unamestr" == 'Linux' ]]; then
@@ -42,8 +23,12 @@ function load_all() {
   file_type=$1
   [ ! -d "$BASH_IT/$file_type/enabled" ] && mkdir "$BASH_IT/${file_type}/enabled"
   for src in $BASH_IT/${file_type}/available/*; do
+      # strip path from the src
       filename="$(basename ${src})"
+
+      # skip files that start with an underscore
       [ ${filename:0:1} = "_" ] && continue
+
       dest="${BASH_IT}/${file_type}/enabled/${filename}"
       if [ ! -e "${dest}" ]; then
           ln -s "${src}" "${dest}"
@@ -61,7 +46,10 @@ function load_some() {
       then
         mkdir "$BASH_IT/$file_type/enabled"
       fi
+
+      # remove the path from the filename
       file_name=$(basename "$path")
+
       while true
       do
         read -p "Would you like to enable the ${file_name%%.*} $file_type? [Y/N] " RESP
@@ -83,26 +71,29 @@ function load_some() {
 
 for type in "apps" "aliases" "plugins" "completion"
 do
-  while true
-  do
-    read -p "Would you like to enable all, some, or no $type? Some of these may make bash slower to start up (especially completion). (all/some/none) " RESP
-    case $RESP
-    in
-    some)
-      load_some $type
-      break
-      ;;
-    all)
-      load_all $type
-      break
-      ;;
-    none)
-      break
-      ;;
-    *)
-      echo "Unknown choice. Please enter some, all, or none"
-      continue
-      ;;
-    esac
-  done
+  # as a default, load everything without asking
+  load_all $type
+  
+  # while true
+  # do
+  #   read -p "Would you like to enable all, some, or no $type? Some of these may make bash slower to start up (especially completion). (all/some/none) " RESP
+  #   case $RESP
+  #   in
+  #   some)
+  #     load_some $type
+  #     break
+  #     ;;
+  #   all)
+  #     load_all $type
+  #     break
+  #     ;;
+  #   none)
+  #     break
+  #     ;;
+  #   *)
+  #     echo "Unknown choice. Please enter some, all, or none"
+  #     continue
+  #     ;;
+  #   esac
+  # done
 done
