@@ -18,7 +18,7 @@ THEME_PROMPT_SEPARATOR="★"
 
 SHELL_SSH_CHAR="✆"
 SHELL_THEME_PROMPT_COLOR=32
-SHELL_SSH_THEME_PROMPT_COLOR=208
+SHELL_SSH_THEME_PROMPT_COLOR=235
 
 VIRTUALENV_CHAR="ⓔ "
 VIRTUALENV_THEME_PROMPT_COLOR=35
@@ -61,10 +61,10 @@ function set_rgb_color {
 # the first part of the prompt
 function powerline_shell_prompt {
     if [[ -n "${SSH_CLIENT}" ]]; then
-        SHELL_PROMPT="${bold_white}$(set_rgb_color - ${SHELL_SSH_THEME_PROMPT_COLOR}) ${SHELL_SSH_CHAR}\u@\h ${normal}"
+        SHELL_PROMPT="${bold_black}$(set_rgb_color - ${SHELL_SSH_THEME_PROMPT_COLOR}) ${SHELL_SSH_CHAR} \u@\h ${normal}"
         LAST_THEME_COLOR=${SHELL_SSH_THEME_PROMPT_COLOR}
     else
-        SHELL_PROMPT="${bold_black}$(set_rgb_color - ${grey_dark}) \u@\h ${normal}"
+        SHELL_PROMPT="${bold_black}$(set_rgb_color - ${SHELL_SSH_THEME_PROMPT_COLOR}) \u@\h ${normal}"
         LAST_THEME_COLOR=${SHELL_THEME_PROMPT_COLOR}
     fi
 }
