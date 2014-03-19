@@ -138,6 +138,9 @@ nnoremap <leader>sv :source $MYVIMRC<CR>    " execute the commands in .vimrc
 " Toggle the Tagbar (plugin: http://majutsushi.github.io/tagbar/)
 nmap <F8> :TagbarToggle<CR>
 
+" Toggle Nerdtree with ctrl+N
+nmap <c-n> :NERDTree<CR>
+
 " ControlP plugin
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
