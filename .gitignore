@@ -9,3 +9,4 @@ plugins/custom.plugins.bash
 *.swp
 .*.un~
 files/vim/view/*
+files/vim/.netrwhist
