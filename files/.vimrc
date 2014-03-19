@@ -19,7 +19,6 @@ call pathogen#infect()
 " open terminal windows after updating the font cache.
 " $ fc-cache -vf ~/.fonts
 
-
 " use 256 colors
 set t_Co=256
 
@@ -30,16 +29,16 @@ let g:Powerline_symbols = "fancy"
 
 " Tabs {{{
 " shortcuts for switching tabs. Now use cmd+N for switching
-                map <D-1> 1gt
-                map <D-2> 2gt
-                map <D-3> 3gt
-                map <D-4> 4gt
-                map <D-5> 5gt
-                map <D-6> 6gt
-                map <D-7> 7gt
-                map <D-8> 8gt
-                map <D-9> 9gt
-                map <D-0> :tablast<CR>
+map <D-1> 1gt
+map <D-2> 2gt
+map <D-3> 3gt
+map <D-4> 4gt
+map <D-5> 5gt
+map <D-6> 6gt
+map <D-7> 7gt
+map <D-8> 8gt
+map <D-9> 9gt
+map <D-0> :tablast<CR>
 "}}}
 
 " Syntax {{{
@@ -136,6 +135,12 @@ nnoremap <leader>ev :vsp $MYVIMRC<CR>       " edit the vimrc
 nnoremap <leader>eb :vsp ~/.bashrc<CR>      " edit bashrc
 nnoremap <leader>sv :source $MYVIMRC<CR>    " execute the commands in .vimrc
 
+" Toggle the Tagbar (plugin: http://majutsushi.github.io/tagbar/)
+nmap <F8> :TagbarToggle<CR>
+
+" ControlP plugin
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 "}}}
 
 " SESSIONS {{{
