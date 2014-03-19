@@ -43,6 +43,7 @@ SCM_THEME_PROMPT_UNTRACKED_COLOR=033
 
 #CWD_THEME_PROMPT_COLOR=240
 CWD_THEME_PROMPT_COLOR=143
+CWD_THEME_FG_COLOR=235
 
 LAST_STATUS_THEME_PROMPT_COLOR=52
 
@@ -124,7 +125,7 @@ function powerline_scm_prompt {
 # the part that shows the working directory
 function powerline_cwd_prompt {
     #CWD_PROMPT="$(set_rgb_color ${LAST_THEME_COLOR} ${CWD_THEME_PROMPT_COLOR})${THEME_PROMPT_SEPARATOR}${normal}$(set_rgb_color - ${CWD_THEME_PROMPT_COLOR}) \w ${normal}$(set_rgb_color ${CWD_THEME_PROMPT_COLOR} -)${normal}"
-    CWD_PROMPT="$(set_rgb_color ${LAST_THEME_COLOR} ${CWD_THEME_PROMPT_COLOR})${normal}$(set_rgb_color - ${CWD_THEME_PROMPT_COLOR}) \w ${normal}$(set_rgb_color ${CWD_THEME_PROMPT_COLOR} -)${normal}"
+    CWD_PROMPT="$(set_rgb_color ${LAST_THEME_COLOR} ${CWD_THEME_PROMPT_COLOR})${normal}$(set_rgb_color ${CWD_THEME_FG_COLOR} ${CWD_THEME_PROMPT_COLOR}) \w ${normal}$(set_rgb_color ${CWD_THEME_PROMPT_COLOR} -)${normal}"
     LAST_THEME_COLOR=${CWD_THEME_PROMPT_COLOR}
 }
 
