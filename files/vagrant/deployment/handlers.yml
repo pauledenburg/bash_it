@@ -1,0 +1,28 @@
+---
+- name: restart nginx
+  service: name=nginx state=restarted
+  sudo_user: root
+
+- name: restart apache
+  service: name=apache2 state=restarted
+  sudo_user: root
+
+- name: restart beanstalkd
+  service: name=beanstalkd state=reloaded
+  sudo_user: root
+
+- name: restart supervisor
+  service: name=supervisor state=restarted
+  sudo_user: root
+
+- name: restart mysql
+  service: name=mysql state=restarted
+  sudo_user: root
+
+- name: reload nginx
+  service: name=nginx state=reloaded
+  sudo_user: root
+
+- name: restart jenkins
+  service: name=jenkins state=restarted
+  sudo_user: root

@@ -1,0 +1,16 @@
+[servers:children]
+local
+
+# in case of connect error, check whether you can login with keys
+# by using vagrant as user
+[local]
+192.168.33.10 nickname=local vm=1 branch=dev ansible_ssh_user=vagrant
+
+[local:vars]
+deployment_user=ansible
+mysql_root_user=root
+mysql_root_pass=vagrant
+mysql_user=root
+mysql_pass=vagrant
+mysql_dbname=vagrant
+mysql_host=localhost

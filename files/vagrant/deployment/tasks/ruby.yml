@@ -1,0 +1,38 @@
+---
+#- vars:
+#    ruby_version: '1.9.3-p286'
+#    ruby_url: 'ftp://ftp.ruby-lang.org//pub/ruby/1.9/ruby-1.9.3-p286.tar.gz'
+
+- name: ruby | Install ruby dependencies
+  apt: pkg={{ item }} state=installed update-cache=yes
+  with_items:
+    - build-essential
+    - git-core
+    - libreadline6-dev
+    - libyaml-dev
+    - libsqlite3-dev
+    - sqlite3
+    - libgdbm-dev
+    - libncurses5-dev
+    - libtool
+    - bison
+    - libffi-dev
+    - libdigest-hmac-perl
+    - unzip
+    - zlib1g
+    - zlib1g-dev
+
+- name: ruby | Download ruby
+  #get_url: url=$ruby_url dest=/tmp/ruby-1.9.3-p286.tar
+  #get_url: url=$ruby_url dest=/tmp/ruby-1.9.3-p286.tar
+  get_url: url=ftp://ftp.ruby-lang.org//pub/ruby/1.9/ruby-1.9.3-p286.tar.gz dest=/tmp/ruby-1.9.3-p286.tar
+
+- name: ruby | Extract ruby
+  command: tar -zxf /tmp/ruby-1.9.3-p286.tar creates=/tmp/ruby-1.9.3-p286 chdir=/tmp
+
+- name: ruby | Make, configure, and install ruby
+  command: "{{ item }} chdir=/tmp/ruby-1.9.3-p286"
+  with_items:
+    - ./configure
+    - make
+    - sudo make install

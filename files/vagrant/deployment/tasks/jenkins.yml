@@ -1,0 +1,68 @@
+---
+  #############
+  # prerequirements
+  #############
+  - name: jenkins | Ensure prerequirements are installed
+    apt: pkg={{ item }} state=installed
+    with_items:
+      - ant
+      - bash-completion
+      - curl
+      - daemon
+      - git
+      - make
+      - openjdk-6-jre
+      - php5-cli
+      - php-pear
+      - vim
+      - wget
+
+  #############
+  # Pear shizzle
+  #############
+  - name: pear | set auto discover
+    command: pear config-set auto_discover 1
+    sudo: yes
+
+  - name: pear | install Jenkins-prerequirements
+    command: pear install {{ item }}
+    with_items:
+      - pear.phing.info/phing
+      - pear.phpmd.org/PHP_PMD
+      - pear.phpunit.de/PHPUnit
+      - pear.phpunit.de/phpcpd
+      - pear.phpunit.de/phploc
+      - pear.php.net/PHP_CodeSniffer
+      - pear.phpdoc.org/phpDocumentor
+    sudo: yes
+
+  # Jenkins himself
+  - name: jenkins | Ensure Jenkins repo key is present
+    apt_key: url=http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key state=present
+
+  - name: Ensure Jenkins apt repository is available
+    apt_repository: repo='deb http://pkg.jenkins-ci.org/debian binary/' state=present
+
+  - name: jenkins | Update the apt cache 
+    apt: update_cache=yes cache_valid_time=3600
+
+  - name: jenkins | Ensure Jenkins is installed
+    apt: pkg=jenkins state=installed
+    notify: 
+      - restart  jenkins
+
+  - name: jenkins | Download de cli
+    command: wget -O /tmp/jenkins-cli.jar http://localhost:8080/jnlpJars/jenkins-cli.jar
+
+  - name: jenkins | Install Jenkins plugins
+    command: java -jar /tmp/jenkins-cli.jar -s http://localhost:8080 install-plugin checkstyle cloverphp dry htmlpublisher jdepend plot pmd violations xunit git
+
+  - name: jenkins | Restart Jenkins
+    command: java -jar /tmp/jenkins-cli.jar -s http://localhost:8080 safe restart
+
+  - name: jenkins | Download PHP template
+    command: wget -O /tmp/config.xml https://raw.github.com/sebastianbergmann/php-jenkins-template/master/config.xml
+
+  - name: jenkins | Import PHP template
+    command: java -jar /tmp/jenkins-cli.jar -s http://localhost:8080 create-job php-template < /tmp/config.xml
+

@@ -1,0 +1,52 @@
+---
+  # prerequirements
+  - name: showterm | Ensure prerequirements are installed
+    apt: pkg={{ item }} state=installed
+    with_items:
+      - git
+      - curl
+      - postgresql
+      - postgresql-server-dev-all
+      - node
+
+  # Install ruby
+  - include: ruby.yml
+
+  # Install ExecJS which allows JS execution from ruby
+  - name: showterm | Ensure ExecJS is installed
+    gem: name=execjs state=present
+
+  # Install sqlite3 and bunder
+  - name: showterm | Ensure sqlite3 is installed
+    gem: name={{ item }} state=present
+    with_items:
+      - sqlite3
+      - bundler
+
+  # Setup the database
+  - name: showterm | Setup the database
+    command: /usr/local/rvm/gems/ruby-2.1.1/bin/rake db:migrate
+
+  # Checkout the showterm code from github
+  - name: showterm | Ensure the showterm code is pulled from github
+    git: repo=https://github.com/ConradIrwin/showterm.io.git dest=/opt/showterm accept_hostkey=true
+
+  # Alter showterm configuration
+  - name: showterm | Remove directive which requires ruby 2.0.0
+    command: /bin/sed -i "s/ruby '2.0.0'//" /opt/showterm/Gemfile
+    sudo: yes
+
+  # Use sqlite3 instead of PostGres
+  - name: showterm | Make sure we use sqlite3 instead of PostgreSQL
+    command: /bin/sed -i "s/gem\s\+'pg'/gem 'sqlite3'/" /opt/showterm/Gemfile
+    sudo: yes
+
+  # Congigure database access
+  - name: showterm | Configuring database access
+    template: src=files/showterm/database.yml dest=/opt/showterm/config/database.yml mode=0640
+
+  # Install showterm
+  # BEWARE: you must probably execute this command yourself on the commandline:
+  # cd /opt/showterm; /usr/local/rvm/bin/bundle install
+  - name: showterm | Ensure showterm is installed
+    shell: chdir=/opt/showterm /usr/local/rvm/bin/rvm use 1.8 && /usr/local/rvm/bin/bundle install 
