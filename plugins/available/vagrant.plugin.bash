@@ -48,5 +48,15 @@ _vagrant()
     fi
 
 }
+
+vsetup(){
+	DIR="$1"
+
+	# create the skeleton directory
+	cp -prf ${BASH_IT}/files/vagrant ${DIR}
+   
+    cd ${DIR}
+}
+
 complete -F _vagrant vagrant
 

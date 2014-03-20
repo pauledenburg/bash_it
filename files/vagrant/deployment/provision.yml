@@ -1,0 +1,30 @@
+---
+- hosts: servers
+  vars_files:
+    - vars.yml
+  gather_facts: false
+  sudo: true
+
+  tasks:
+
+  # SSH
+  - include: tasks/ssh.yml
+
+  # Upgrade the system
+  - name: apt | Update the apt cache 
+    apt: upgrade=dist update_cache=yes cache_valid_time=3600
+    sudo: yes
+
+  # Miscellaneous
+  - name: apt | Ensure variaty of tools is installed
+    apt: pkg={{ item }} state=installed
+    with_items:
+      - vim
+      - curl
+      - git
+
+  # install ruby
+  #- include: tasks/ruby.yml
+
+  handlers:
+    - include: handlers.yml

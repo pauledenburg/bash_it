@@ -1,0 +1,13 @@
+---
+
+  # SSH - copy the gitlab private (!!) SSH key
+  - name: ssh | put Gitlab ssh-key in
+    copy: src=~/.ssh/id_dsa dest=/home/vagrant/.ssh/ owner=vagrant mode=0400
+
+  # SSH - copy the config file
+  - name: ssh | Put the SSH config file in place
+    action: template src=files/conf/ssh_config.j2 dest=/home/vagrant/.ssh/config
+
+  # Create the .ssh directory for root
+  - name: ssh | Ensure the SSH default .ssh directory for root exists
+    file: path=/root/.ssh owner=root group=root state=directory
