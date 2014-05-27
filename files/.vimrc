@@ -28,17 +28,27 @@ let g:Powerline_symbols = "fancy"
 "}}}
 
 " Tabs {{{
-" shortcuts for switching tabs. Now use cmd+N for switching
-map <D-1> 1gt
-map <D-2> 2gt
-map <D-3> 3gt
-map <D-4> 4gt
-map <D-5> 5gt
-map <D-6> 6gt
-map <D-7> 7gt
-map <D-8> 8gt
-map <D-9> 9gt
-map <D-0> :tablast<CR>
+" mappings:
+" map  - keymap for normal, visual, select, oper.pending mode
+" map! - keymap for insert and command-line mode 
+" nmap - Display normal mode maps
+" imap - Display insert mode maps
+" vmap - Display visual and select mode maps
+" smap - Display select mode maps
+" xmap - Display visual mode maps
+" cmap - Display command-line mode maps
+" omap - Display operator pending mode maps
+" shortcuts for switching tabs. Now use alt+N or cmd+N for switching
+map <M-1> 1gt
+map <M-2> 2gt
+map <M-3> 3gt
+map <M-4> 4gt
+map <M-5> 5gt
+map <M-6> 6gt
+map <M-7> 7gt
+map <M-8> 8gt
+map <M-9> 9gt
+map <M-0> :tablast<CR>
 "}}}
 
 " Syntax {{{
@@ -139,7 +149,7 @@ nnoremap <leader>sv :source $MYVIMRC<CR>    " execute the commands in .vimrc
 nmap <F8> :TagbarToggle<CR>
 
 " Toggle Nerdtree with ctrl+N
-nmap <c-n> :NERDTree<CR>
+nmap <c-n> :NERDTreeToggle<CR>
 
 " ControlP plugin
 let g:ctrlp_map = '<c-p>'
