@@ -4,3 +4,7 @@ about-alias 'general aliases'
 
 # kill all active tmux sessions
 alias tkas='tmux ls | cut -d " " -f 1 | while read session; do tmux kill-session -t ${session%*:}; done'
+alias tmk='tmux ls | cut -d " " -f 1 | while read session; do tmux kill-session -t ${session%*:}; done'
+
+alias tml='tmux ls'
+alias tma='tmux attach -t'
