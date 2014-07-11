@@ -8,6 +8,12 @@ alias la='ls -AFG'       # Compact view, show hidden
 alias ll='ls -lG'
 alias l='ls -aG'
 alias l1='ls -1'
+alias lrt='ls -lrt '
+alias lart='ls -lart '
+
+alias lrtlog='ls -lart /var/log'
+alias a2lrtlog='ls -lart /var/log/apache2'
+alias a2lrt='ls -lart /etc/apache2/sites-enabled'
 
 alias _="sudo"
 

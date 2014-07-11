@@ -28,17 +28,27 @@ let g:Powerline_symbols = "fancy"
 "}}}
 
 " Tabs {{{
-" shortcuts for switching tabs. Now use cmd+N for switching
-map <D-1> 1gt
-map <D-2> 2gt
-map <D-3> 3gt
-map <D-4> 4gt
-map <D-5> 5gt
-map <D-6> 6gt
-map <D-7> 7gt
-map <D-8> 8gt
-map <D-9> 9gt
-map <D-0> :tablast<CR>
+" mappings:
+" map  - keymap for normal, visual, select, oper.pending mode
+" map! - keymap for insert and command-line mode 
+" nmap - Display normal mode maps
+" imap - Display insert mode maps
+" vmap - Display visual and select mode maps
+" smap - Display select mode maps
+" xmap - Display visual mode maps
+" cmap - Display command-line mode maps
+" omap - Display operator pending mode maps
+" shortcuts for switching tabs. Now use alt+N or cmd+N for switching
+map <M-1> 1gt
+map <M-2> 2gt
+map <M-3> 3gt
+map <M-4> 4gt
+map <M-5> 5gt
+map <M-6> 6gt
+map <M-7> 7gt
+map <M-8> 8gt
+map <M-9> 9gt
+map <M-0> :tablast<CR>
 "}}}
 
 " Syntax {{{
@@ -138,14 +148,44 @@ nnoremap <leader>sv :source $MYVIMRC<CR>    " execute the commands in .vimrc
 " Toggle the Tagbar (plugin: http://majutsushi.github.io/tagbar/)
 nmap <F8> :TagbarToggle<CR>
 
-" Toggle Nerdtree with ctrl+N
-nmap <c-n> :NERDTreeToggle<CR>
-
 " ControlP plugin
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 "}}}
 
+" NERDTree {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 
+" C-n or :NERDTreeToggle         # opens NERDTree
+
+"""""""""""""""""""
+" O P E N I N G 
+" m                              # opens menu mode for creating/deleting files, 'Ctrl-c' exits out of this mode
+" i                              # opens file with horizontal split
+" s                              # opens file in vertical split
+" o or <enter>                   # opens selected file
+" t                              # opens file in new tab
+
+"""""""""""""""""""
+" B O O K M A R K S 
+" B                              # shows bookmarks
+" :Bookmark <name>               # creates bookmark for selected tree branch
+" D                              # deletes selected bookmark
+
+" :NERDTreeFind                  # finds current file in tree
+" q                              # closes NERDTree
+" Ctrl-w-w                       # jump cursor to next viewport including the one for NERDTree
+" gt and gT                      # switches between tabs
+
+" Toggle Nerdtree with ctrl+N
+nmap <c-n> :NERDTreeToggle<CR>
+
+"" Optional, to show special NERDTree browser characters properly (e.g. on remote linux system)
+let g:NERDTreeDirArrows=0
+
+"" Show bookmarks by default
+let NERDTreeShowBookmarks=1
+"}}}
 " SESSIONS {{{
 " save session
 nnoremap <leader>s :mksession<CR>
@@ -176,3 +216,69 @@ au BufWinLeave * mkview
 au BufWinEnter * silent loadview
 
 " }}}
+
+" TMUX {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" source: http://manuals.bioinformatics.ucr.edu/home/programming-in-r/vim-r
+" sample settings for vim-r-plugin and screen.vim
+" Installation 
+"       - Place plugin file under ~/.vim/
+"       - To activate help, type in vim :helptags ~/.vim/doc
+"       - Place the following vim conf lines in .vimrc
+" Usage
+"       - Read intro/help in vim with :h vim-r-plugin or :h screen.txt
+"       - To initialize vim/R session, start screen/tmux, open some *.R file in vim and then hit F2 key
+"       - Object/omni completion command CTRL-X CTRL-O
+"       - To update object list for omni completion, run :RUpdateObjList
+" My favorite Vim/R window arrangement 
+"	tmux attach
+"	Open *.R file in Vim and hit F2 to open R
+"	Go to R pane and create another pane with C-a %
+"	Open second R session in new pane
+"	Go to vim pane and open a new viewport with :split *.R
+" Useful tmux commands
+"       tmux new -s <myname>       start new session with a specific name
+"	tmux ls (C-a-s)            list tmux session
+"       tmux attach -t <id>        attach to specific session  
+"       tmux kill-session -t <id>  kill specific session
+" 	C-a-: kill-session         kill a session
+" 	C-a %                      split pane vertically
+"       C-a "                      split pane horizontally
+" 	C-a-o                      jump cursor to next pane
+"	C-a C-o                    swap panes
+" 	C-a-: resize-pane -L 10    resizes pane by 10 to left (L R U D)
+" Corresponding Vim commands
+" 	:split or :vsplit      split viewport
+" 	C-w-w                  jump cursor to next pane-
+" 	C-w-r                  swap viewports
+" 	C-w C-++               resize viewports to equal split
+" 	C-w 10+                increase size of current pane by value
+
+" To open R in terminal rather than RGui (only necessary on OS X)
+" let vimrplugin_applescript = 0
+" let vimrplugin_screenplugin = 0
+" For tmux support
+let g:ScreenImpl = 'Tmux'
+let vimrplugin_screenvsplit = 1 " For vertical tmux split
+let g:ScreenShellInitialFocus = 'shell' 
+" instruct to use your own .screenrc file
+let g:vimrplugin_noscreenrc = 1
+" For integration of r-plugin with screen.vim
+"let g:vimrplugin_screenplugin = 1
+" Don't use conque shell if installed
+let vimrplugin_conqueplugin = 0
+" map the letter 'r' to send visually selected lines to R 
+"let g:vimrplugin_map_r = 1
+" see R documentation in a Vim buffer
+"let vimrplugin_vimpager = "no"
+" start R with F2 key
+"map <F2> <Plug>RStart 
+"imap <F2> <Plug>RStart
+"vmap <F2> <Plug>RStart
+" send selection to R with space bar
+"vmap <Space> <Plug>RDSendSelection 
+" send line to R with space bar
+"nmap <Space> <Plug>RDSendLine
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"}}}
