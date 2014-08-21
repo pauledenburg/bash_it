@@ -10,9 +10,10 @@ Includes autocompletion, themes, aliases, custom functions, a few stolen pieces 
 
 1. Check a clone of this repo: `git clone https://github.com/pauledenburg/bash_it.git ~/.bash_it`
 2. Run `~/.bash_it/install.sh` (it automatically backs up your `~/.bash_profile`)
-3. Edit your `~/.bash_profile` file in order to customize bash-it.
-4. Run `. ~/.bash_profile`
+4. Run `. ~/.bash_profile` to make use of bash_it
 
+##modififying
+Edit your `~/.bash_profile` file in order to customize bash-it.
 
 ## Help Screens
 
