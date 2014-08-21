@@ -6,6 +6,9 @@
 
 Includes autocompletion, themes, aliases, custom functions, a few stolen pieces from Steve Losh, and more.
 
+## Requirements
+* [vim](http://www.vim.org/)
+
 ## Install
 
 1. Check a clone of this repo: `git clone https://github.com/pauledenburg/bash_it.git ~/.bash_it`
