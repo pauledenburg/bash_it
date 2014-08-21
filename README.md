@@ -12,10 +12,6 @@ Includes autocompletion, themes, aliases, custom functions, a few stolen pieces 
 2. Run `~/.bash_it/install.sh` (it automatically backs up your `~/.bash_profile`)
 3. Edit your `~/.bash_profile` file in order to customize bash-it.
 
-**NOTE:**
-The install script will also prompt you asking if you use [Jekyll](https://github.com/mojombo/jekyll).
-This is to set up the `.jekyllconfig` file, which stores info necessary to use the Jekyll plugin.
-
 
 ## Help Screens
 
