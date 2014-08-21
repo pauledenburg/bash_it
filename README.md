@@ -7,7 +7,7 @@
 Includes autocompletion, themes, aliases, custom functions, a few stolen pieces from Steve Losh, and more.
 
 ## Requirements
-* [vim](http://www.vim.org/)
+* [vim](http://www.vim.org/) (be sure to update your current vim to >=7.3)
 
 ## Install
 
