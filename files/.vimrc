@@ -96,6 +96,9 @@ set smartcase
 " Allow vim settings in the header-comment
 set modeline
 
+" allow the mouse to do selections
+set mouse=a
+
 "
 " Always display the status line, even if only one window is displayed
 set laststatus=2
