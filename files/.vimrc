@@ -2,7 +2,7 @@
 
 " Pathogen {{{
 " call pathogen for enabling plugins
-call pathogen#infect()
+execute pathogen#infect()
 
 "}}}
 
@@ -147,7 +147,6 @@ nnoremap <leader>sv :source $MYVIMRC<CR>    " execute the commands in .vimrc
 
 " Toggle the Tagbar (plugin: http://majutsushi.github.io/tagbar/)
 nmap <F8> :TagbarToggle<CR>
-
 
 "}}}
 
