@@ -281,5 +281,54 @@ let vimrplugin_conqueplugin = 0
 " send line to R with space bar
 "nmap <Space> <Plug>RDSendLine
 
+" Remove the Background Color Eraser (http://superuser.com/questions/399296/256-color-support-for-vim-background-in-tmux)
+set t_ut=
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "}}}
+
+" Mappings to access buffers (don't use "\p" because a
+" delay before pressing "p" would accidentally paste).
+" ,l       : list buffers
+" ,b ,f ,g : go back/forward/last-used
+" ,1 ,2 ,3 : go to buffer 1/2/3 etc
+nnoremap <Leader>l :ls<CR>:buffer<space>
+nnoremap <Leader>p :bp<CR>
+nnoremap <Leader>n :bn<CR>
+nnoremap <Leader>g :e#<CR>
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
+nnoremap <Leader>0 :10b<CR>
+" It's useful to show the buffer number in the status line.
+set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+
+" Set the phpunit command for CakePHP
+let g:phpunit_cmd = "~/Developer/socsoc/app/Console/cake test app "
+
+" Let PHPUnitQf use the callback function
+let g:phpunit_callback = "CakePHPTestCallback"
+
+function! CakePHPTestCallback(args)
+    " Trim white space
+    let l:args = substitute(a:args, '^\s*\(.\{-}\)\s*$', '\1', '')
+
+    " If no arguments are passed to :Test
+    if len(l:args) is 0
+        let l:file = expand('%')
+        if l:file =~ "^app/Test/Case.*"
+            " If the current file is a unit test
+            let l:args = substitute(l:file,'^\(app/\)\=\(Test/\)\=\(Case/\)\=\(.\{-}\)Test\.php$','\4','')
+        else
+            " Otherwise try and run the test for this file
+            let l:args = substitute(l:file,'^app/\(.\{-}\)\.php$','\1','')
+        endif
+    endif
+    return l:args
+endfunction
