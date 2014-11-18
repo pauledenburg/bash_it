@@ -2,7 +2,7 @@
 
 " Pathogen {{{
 " call pathogen for enabling plugins
-call pathogen#infect()
+execute pathogen#infect()
 
 "}}}
 
@@ -96,6 +96,9 @@ set smartcase
 " Allow vim settings in the header-comment
 set modeline
 
+" allow the mouse to do selections
+set mouse=a
+
 "
 " Always display the status line, even if only one window is displayed
 set laststatus=2
@@ -148,10 +151,29 @@ nnoremap <leader>sv :source $MYVIMRC<CR>    " execute the commands in .vimrc
 " Toggle the Tagbar (plugin: http://majutsushi.github.io/tagbar/)
 nmap <F8> :TagbarToggle<CR>
 
+"}}}
 
-" ControlP plugin
+" ControlP plugin{{{
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+
+" ignor files
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+" let g:ctrlp_custom_ignore = {
+"  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+"  \ 'file': '\v\.(exe|so|dll)$',
+"  \ 'link': 'some_bad_symbolic_links',
+"  \ }
+
+" set the starting directory
+" 'c' - the directory of the current file.
+" 'r' - the nearest ancestor that contains one of these directories or files: .git .hg .svn .bzr _darcs
+" 'a' - like c, but only if the current working directory outside of CtrlP is not a direct ancestor of the directory of the current file.
+" 0 or '' (empty string) - disable this feature.
+let g:ctrlp_working_path_mode = 'ra'
 "}}}
 
 " NERDTree {{{

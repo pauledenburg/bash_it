@@ -6,16 +6,17 @@
 
 Includes autocompletion, themes, aliases, custom functions, a few stolen pieces from Steve Losh, and more.
 
+## Requirements
+* [vim](http://www.vim.org/) (be sure to update your current vim to >=7.3)
+
 ## Install
 
-1. Check a clone of this repo: `git clone git@github.com:pauledenburg/bash_it.git ~/.bash_it`
+1. Check a clone of this repo: `git clone https://github.com/pauledenburg/bash_it.git ~/.bash_it`
 2. Run `~/.bash_it/install.sh` (it automatically backs up your `~/.bash_profile`)
-3. Edit your `~/.bash_profile` file in order to customize bash-it.
+4. Run `. ~/.bash_profile` to make use of bash_it
 
-**NOTE:**
-The install script will also prompt you asking if you use [Jekyll](https://github.com/mojombo/jekyll).
-This is to set up the `.jekyllconfig` file, which stores info necessary to use the Jekyll plugin.
-
+##modififying
+Edit your `~/.bash_profile` file in order to customize bash-it.
 
 ## Help Screens
 

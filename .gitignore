@@ -7,6 +7,8 @@ aliases/custom.aliases.bash
 lib/custom.bash
 plugins/custom.plugins.bash
 *.swp
+*.swo
+.swo
 .*.un~
 files/vim/view/*
 files/vim/.netrwhist
