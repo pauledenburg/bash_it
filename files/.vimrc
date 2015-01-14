@@ -97,6 +97,7 @@ set smartcase
 set modeline
 
 " allow the mouse to do selections
+" to do 'regular' mouse selection, use ctrl+selection so you can copy, for example
 set mouse=a
 
 "
