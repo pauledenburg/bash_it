@@ -4,6 +4,7 @@ about-alias 'vagrant aliases'
 # Aliases
 alias vup="vagrant up"
 alias vh="vagrant halt"
+alias vhalt="vagrant halt"
 alias vs="vagrant suspend"
 alias vr="vagrant resume"
 alias vrl="vagrant reload"
