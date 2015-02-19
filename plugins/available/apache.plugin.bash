@@ -1,7 +1,7 @@
 cite about-plugin
 about-plugin 'apache tools'
 
-ips ()
+a2tail ()
 {
     about 'display all Apache log files with the question which one to tail'
     group 'base'
