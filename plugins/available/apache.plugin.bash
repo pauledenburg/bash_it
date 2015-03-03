@@ -7,6 +7,12 @@ a2tail ()
     group 'base'
     files=(/var/log/apache2/*log)
 
+	# be sure to have read access to that directory
+	if [[ ! -r $files ]]; then
+		echo "You have no read access to the Apache log files"
+		return 1
+	fi
+
 	sorthelper=();
 	for file in "${files[@]}"; do
 	    # We need something that can easily be sorted.
