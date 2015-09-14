@@ -310,27 +310,9 @@ set t_ut=
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "}}}
 
-" Mappings to access buffers (don't use "\p" because a
-" delay before pressing "p" would accidentally paste).
-" ,l       : list buffers
-" ,b ,f ,g : go back/forward/last-used
-" ,1 ,2 ,3 : go to buffer 1/2/3 etc
-nnoremap <Leader>l :ls<CR>:buffer<space>
-nnoremap <Leader>p :bp<CR>
-nnoremap <Leader>n :bn<CR>
-nnoremap <Leader>g :e#<CR>
-nnoremap <Leader>1 :1b<CR>
-nnoremap <Leader>2 :2b<CR>
-nnoremap <Leader>3 :3b<CR>
-nnoremap <Leader>4 :4b<CR>
-nnoremap <Leader>5 :5b<CR>
-nnoremap <Leader>6 :6b<CR>
-nnoremap <Leader>7 :7b<CR>
-nnoremap <Leader>8 :8b<CR>
-nnoremap <Leader>9 :9b<CR>
-nnoremap <Leader>0 :10b<CR>
-" It's useful to show the buffer number in the status line.
-set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+" {{{ Miscellaneous
+" Map the use to write to read-only files with sudo by using :w!!
+cmap w!! w !sudo tee % >/dev/null
 
 " Set the phpunit command for CakePHP
 let g:phpunit_cmd = "~/Developer/socsoc/app/Console/cake test app "
@@ -355,3 +337,29 @@ function! CakePHPTestCallback(args)
     endif
     return l:args
 endfunction
+" }}}
+
+" {{{ Buffers
+" Mappings to access buffers (don't use "\p" because a
+" delay before pressing "p" would accidentally paste).
+" ,l       : list buffers
+" ,b ,f ,g : go back/forward/last-used
+" ,1 ,2 ,3 : go to buffer 1/2/3 etc
+nnoremap <Leader>l :ls<CR>:buffer<space>
+nnoremap <Leader>p :bp<CR>
+nnoremap <Leader>n :bn<CR>
+nnoremap <Leader>g :e#<CR>
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
+nnoremap <Leader>0 :10b<CR>
+
+" It's useful to show the buffer number in the status line.
+set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+" }}}
