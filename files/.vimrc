@@ -141,8 +141,8 @@ set cursorline
 " visual autocomplete for command menu
 set wildmenu
 
-" leader is comma
-let mapleader=","
+" leader is space
+let mapleader=" "
 
 " Easy shortcuts for editing the .vimrc and .bashrc
 nnoremap <leader>ev :vsp $MYVIMRC<CR>       " edit the vimrc
@@ -200,6 +200,13 @@ let g:ctrlp_working_path_mode = 'ra'
 " q                              # closes NERDTree
 " Ctrl-w-w                       # jump cursor to next viewport including the one for NERDTree
 " gt and gT                      # switches between tabs
+
+"""""""""""""""""""
+" PERSONAL MODS 
+"
+" :Ncd /path/where/you/want      # Change the directory with dir-completion
+
+com! -nargs=1 -complete=dir Ncd NERDTree | cd <args> |NERDTreeCWD
 
 " Toggle Nerdtree with ctrl+N
 nmap <c-n> :NERDTreeToggle<CR>
