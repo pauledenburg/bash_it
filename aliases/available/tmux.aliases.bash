@@ -14,6 +14,7 @@ alias tmk='tmux ls | cut -d " " -f 1 | while read session; do tmux kill-session 
 
 # list all sessions
 alias tml='tmux ls'
+alias tmls='tmux ls'
 
 # attach to an existing session
-alias tma='tmux attach -t '
+alias tma='tmux attach-session -t '

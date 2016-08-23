@@ -147,6 +147,7 @@ let mapleader=" "
 " Easy shortcuts for editing the .vimrc and .bashrc
 nnoremap <leader>ev :vsp $MYVIMRC<CR>       " edit the vimrc
 nnoremap <leader>eb :vsp ~/.bashrc<CR>      " edit bashrc
+nnoremap <leader>et :vsp ~/.tmux.conf<CR>      " edit tmux.conf
 nnoremap <leader>sv :source $MYVIMRC<CR>    " execute the commands in .vimrc
 
 " Toggle the Tagbar (plugin: http://majutsushi.github.io/tagbar/)
