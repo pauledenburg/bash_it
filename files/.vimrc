@@ -25,9 +25,15 @@ set t_Co=256
 " use unicode symbols
 let g:Powerline_symbols = "fancy"
 
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
 "}}}
 
-" Tabs {{{
+" Buffers {{{
 " mappings:
 " map  - keymap for normal, visual, select, oper.pending mode
 " map! - keymap for insert and command-line mode 
@@ -38,17 +44,61 @@ let g:Powerline_symbols = "fancy"
 " xmap - Display visual mode maps
 " cmap - Display command-line mode maps
 " omap - Display operator pending mode maps
+
+" This allows buffers to be hidden if you've modified a bufer.
+" This is almost a must if you wish to use buffers in this way
+set hidden
+
+" To open a new empty buffer
+" This replaces :tabnew which I used to bind to this mapping
+nmap <leader>T :enew<CR>
+
 " shortcuts for switching tabs. Now use alt+N or cmd+N for switching
-map <M-1> 1gt
-map <M-2> 2gt
-map <M-3> 3gt
-map <M-4> 4gt
-map <M-5> 5gt
-map <M-6> 6gt
-map <M-7> 7gt
-map <M-8> 8gt
-map <M-9> 9gt
-map <M-0> :tablast<CR>
+map <leader>1 :b 1<CR>
+map <leader>2 :b 2<CR>
+map <leader>3 :b 3<CR>
+map <leader>4 :b 4<CR>
+map <leader>5 :b 5<CR>
+map <leader>6 :b 6<CR>
+map <leader>7 :b 7<CR>
+map <leader>8 :b 8<CR>
+map <leader>9 :b 9<CR>
+map <leader>0 :tablast<CR>
+
+" Buffers are the files that are open in memory. 
+" Mappings to access buffers (don't use "\p" because a
+" delay before pressing "p" would accidentally paste).
+" ,l       : list buffers
+" ,b ,f ,g : go back/forward/last-used
+" ,1 ,2 ,3 : go to buffer 1/2/3 etc
+nmap <Leader>l :bnext<CR>
+nmap <Leader>h :bprevious<CR>
+"nmap <Leader>ls :ls<CR>:buffer<space>
+nmap <Leader>g :e#<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+
+" It's useful to show the buffer number in the status line.
+set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+"}}}
+
+" {{{ Tabs
+map <leader>t1 :tabm 1<CR>
+map <leader>t2 :tabm 2<CR>
+map <leader>t3 :tabm 3<CR>
+map <leader>t4 :tabm 4<CR>
+map <leader>t5 :tabm 5<CR>
+map <leader>t6 :tabm 6<CR>
+map <leader>t7 :tabm 7<CR>
+map <leader>t8 :tabm 8<CR>
+map <leader>t9 :tabm 9<CR>
+map <leader>t0 :tablast<CR>
+map <leader>tn :tabn<CR>
+map <leader>tp :tabp<CR>
+map <leader>tf :tabfirst<CR>
+map <leader>tc :tabclose<CR>
 "}}}
 
 " Syntax {{{
@@ -155,6 +205,12 @@ nmap <F8> :TagbarToggle<CR>
 
 "}}}
 
+"{{{ VIMWIKI
+set nocompatible
+filetype plugin on
+"syntax on
+"}}}
+
 " ControlP plugin{{{
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -218,6 +274,7 @@ let g:NERDTreeDirArrows=0
 "" Show bookmarks by default
 let NERDTreeShowBookmarks=1
 "}}}
+
 " SESSIONS {{{
 " save session
 nnoremap <leader>s :mksession<CR>
@@ -239,8 +296,8 @@ set foldnestmax=10
 " manual, expr, syntax, diff
 set foldmethod=indent
 
-" Use <space> for opening/closing folds
-nnoremap <space> za
+" Use <enter> for opening/closing folds
+nnoremap <CR> za
 
 " each time you close a file, its fold state will be saved and reloaded
 " when you reopen the file in Vim
@@ -347,27 +404,3 @@ function! CakePHPTestCallback(args)
 endfunction
 " }}}
 
-" {{{ Buffers
-" Mappings to access buffers (don't use "\p" because a
-" delay before pressing "p" would accidentally paste).
-" ,l       : list buffers
-" ,b ,f ,g : go back/forward/last-used
-" ,1 ,2 ,3 : go to buffer 1/2/3 etc
-nnoremap <Leader>l :ls<CR>:buffer<space>
-nnoremap <Leader>p :bp<CR>
-nnoremap <Leader>n :bn<CR>
-nnoremap <Leader>g :e#<CR>
-nnoremap <Leader>1 :1b<CR>
-nnoremap <Leader>2 :2b<CR>
-nnoremap <Leader>3 :3b<CR>
-nnoremap <Leader>4 :4b<CR>
-nnoremap <Leader>5 :5b<CR>
-nnoremap <Leader>6 :6b<CR>
-nnoremap <Leader>7 :7b<CR>
-nnoremap <Leader>8 :8b<CR>
-nnoremap <Leader>9 :9b<CR>
-nnoremap <Leader>0 :10b<CR>
-
-" It's useful to show the buffer number in the status line.
-set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-" }}}
