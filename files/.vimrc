@@ -371,3 +371,24 @@ nnoremap <Leader>0 :10b<CR>
 " It's useful to show the buffer number in the status line.
 set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 " }}}
+
+" VIMWIKI {{{
+set nocompatible
+filetype plugin on
+syntax on
+
+let g:vimwiki_list = [{'path':'~/Dropbox/vimwiki', 'path_html':'~/Dropbox/vimwiki_html/'}]
+
+let wiki_1 = {}
+let wiki_1.path = '~/Dropbox/vimwiki'
+let wiki_1.html_template = '~/Dropbox/vimwiki_html'
+" let wiki_1.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
+
+let g:vimwiki_list = [wiki_1]
+
+"let wiki_2 = {}
+"let wiki_2.path = '~/project_docs/'
+"let wiki_2.index = 'main'
+"
+"let g:vimwiki_list = [wiki_1, wiki_2]
+" }}}
