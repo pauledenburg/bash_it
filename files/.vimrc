@@ -33,56 +33,6 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 
 "}}}
 
-" Buffers {{{
-" mappings:
-" map  - keymap for normal, visual, select, oper.pending mode
-" map! - keymap for insert and command-line mode 
-" nmap - Display normal mode maps
-" imap - Display insert mode maps
-" vmap - Display visual and select mode maps
-" smap - Display select mode maps
-" xmap - Display visual mode maps
-" cmap - Display command-line mode maps
-" omap - Display operator pending mode maps
-
-" This allows buffers to be hidden if you've modified a bufer.
-" This is almost a must if you wish to use buffers in this way
-set hidden
-
-" To open a new empty buffer
-" This replaces :tabnew which I used to bind to this mapping
-nmap <leader>T :enew<CR>
-
-" shortcuts for switching tabs. Now use alt+N or cmd+N for switching
-map <leader>1 :b 1<CR>
-map <leader>2 :b 2<CR>
-map <leader>3 :b 3<CR>
-map <leader>4 :b 4<CR>
-map <leader>5 :b 5<CR>
-map <leader>6 :b 6<CR>
-map <leader>7 :b 7<CR>
-map <leader>8 :b 8<CR>
-map <leader>9 :b 9<CR>
-map <leader>0 :tablast<CR>
-
-" Buffers are the files that are open in memory. 
-" Mappings to access buffers (don't use "\p" because a
-" delay before pressing "p" would accidentally paste).
-" ,l       : list buffers
-" ,b ,f ,g : go back/forward/last-used
-" ,1 ,2 ,3 : go to buffer 1/2/3 etc
-nmap <Leader>l :bnext<CR>
-nmap <Leader>h :bprevious<CR>
-"nmap <Leader>ls :ls<CR>:buffer<space>
-nmap <Leader>g :e#<CR>
-
-" Close the current buffer and move to the previous one
-" This replicates the idea of closing a tab
-nmap <leader>bq :bp <BAR> bd #<CR>
-
-" It's useful to show the buffer number in the status line.
-set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-"}}}
 
 " {{{ Tabs
 map <leader>t1 :tabm 1<CR>
@@ -404,3 +354,67 @@ function! CakePHPTestCallback(args)
 endfunction
 " }}}
 
+" {{{ Buffers
+"
+" mappings:
+" map  - keymap for normal, visual, select, oper.pending mode
+" map! - keymap for insert and command-line mode 
+" nmap - Display normal mode maps
+" imap - Display insert mode maps
+" vmap - Display visual and select mode maps
+" smap - Display select mode maps
+" xmap - Display visual mode maps
+" cmap - Display command-line mode maps
+" omap - Display operator pending mode maps
+
+" This allows buffers to be hidden if you've modified a bufer.
+" This is almost a must if you wish to use buffers in this way
+set hidden
+" Mappings to access buffers (don't use "\p" because a
+" delay before pressing "p" would accidentally paste).
+" ,l       : list buffers
+" ,b ,f ,g : go back/forward/last-used
+" ,1 ,2 ,3 : go to buffer 1/2/3 etc
+nnoremap <Leader>l :ls<CR>:buffer<space>
+nnoremap <Leader>p :bp<CR>
+nnoremap <Leader>n :bn<CR>
+nnoremap <Leader>g :e#<CR>
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
+nnoremap <Leader>0 :10b<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+
+" It's useful to show the buffer number in the status line.
+set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+" }}}
+
+" VIMWIKI {{{
+set nocompatible
+filetype plugin on
+syntax on
+
+let g:vimwiki_list = [{'path':'~/Dropbox/vimwiki', 'path_html':'~/Dropbox/vimwiki_html/'}]
+
+let wiki_1 = {}
+let wiki_1.path = '~/Dropbox/vimwiki'
+let wiki_1.html_template = '~/Dropbox/vimwiki_html'
+" let wiki_1.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
+
+let g:vimwiki_list = [wiki_1]
+
+"let wiki_2 = {}
+"let wiki_2.path = '~/project_docs/'
+"let wiki_2.index = 'main'
+"
+"let g:vimwiki_list = [wiki_1, wiki_2]
+" }}}
