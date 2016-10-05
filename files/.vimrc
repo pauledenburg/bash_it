@@ -25,30 +25,30 @@ set t_Co=256
 " use unicode symbols
 let g:Powerline_symbols = "fancy"
 
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
 "}}}
 
-" Tabs {{{
-" mappings:
-" map  - keymap for normal, visual, select, oper.pending mode
-" map! - keymap for insert and command-line mode 
-" nmap - Display normal mode maps
-" imap - Display insert mode maps
-" vmap - Display visual and select mode maps
-" smap - Display select mode maps
-" xmap - Display visual mode maps
-" cmap - Display command-line mode maps
-" omap - Display operator pending mode maps
-" shortcuts for switching tabs. Now use alt+N or cmd+N for switching
-map <M-1> 1gt
-map <M-2> 2gt
-map <M-3> 3gt
-map <M-4> 4gt
-map <M-5> 5gt
-map <M-6> 6gt
-map <M-7> 7gt
-map <M-8> 8gt
-map <M-9> 9gt
-map <M-0> :tablast<CR>
+
+" {{{ Tabs
+map <leader>t1 :tabm 1<CR>
+map <leader>t2 :tabm 2<CR>
+map <leader>t3 :tabm 3<CR>
+map <leader>t4 :tabm 4<CR>
+map <leader>t5 :tabm 5<CR>
+map <leader>t6 :tabm 6<CR>
+map <leader>t7 :tabm 7<CR>
+map <leader>t8 :tabm 8<CR>
+map <leader>t9 :tabm 9<CR>
+map <leader>t0 :tablast<CR>
+map <leader>tn :tabn<CR>
+map <leader>tp :tabp<CR>
+map <leader>tf :tabfirst<CR>
+map <leader>tc :tabclose<CR>
 "}}}
 
 " Syntax {{{
@@ -141,12 +141,13 @@ set cursorline
 " visual autocomplete for command menu
 set wildmenu
 
-" leader is comma
-let mapleader=","
+" leader is space
+let mapleader=" "
 
 " Easy shortcuts for editing the .vimrc and .bashrc
 nnoremap <leader>ev :vsp $MYVIMRC<CR>       " edit the vimrc
 nnoremap <leader>eb :vsp ~/.bashrc<CR>      " edit bashrc
+nnoremap <leader>et :vsp ~/.tmux.conf<CR>      " edit tmux.conf
 nnoremap <leader>sv :source $MYVIMRC<CR>    " execute the commands in .vimrc
 
 " Toggle the Tagbar (plugin: http://majutsushi.github.io/tagbar/)
@@ -154,6 +155,12 @@ nmap <F8> :TagbarToggle<CR>
 
 " Set w!! to overwrite read-only file with sudo
 cmap w!! w !sudo tee > /dev/null %
+"}}}
+
+"{{{ VIMWIKI
+set nocompatible
+filetype plugin on
+"syntax on
 "}}}
 
 " ControlP plugin{{{
@@ -203,6 +210,13 @@ let g:ctrlp_working_path_mode = 'ra'
 " Ctrl-w-w                       # jump cursor to next viewport including the one for NERDTree
 " gt and gT                      # switches between tabs
 
+"""""""""""""""""""
+" PERSONAL MODS 
+"
+" :Ncd /path/where/you/want      # Change the directory with dir-completion
+
+com! -nargs=1 -complete=dir Ncd NERDTree | cd <args> |NERDTreeCWD
+
 " Toggle Nerdtree with ctrl+N
 nmap <c-n> :NERDTreeToggle<CR>
 
@@ -212,6 +226,7 @@ let g:NERDTreeDirArrows=0
 "" Show bookmarks by default
 let NERDTreeShowBookmarks=1
 "}}}
+
 " SESSIONS {{{
 " save session
 nnoremap <leader>s :mksession<CR>
@@ -233,8 +248,8 @@ set foldnestmax=10
 " manual, expr, syntax, diff
 set foldmethod=indent
 
-" Use <space> for opening/closing folds
-nnoremap <space> za
+" Use <enter> for opening/closing folds
+nnoremap <CR> za
 
 " each time you close a file, its fold state will be saved and reloaded
 " when you reopen the file in Vim
@@ -312,27 +327,9 @@ set t_ut=
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "}}}
 
-" Mappings to access buffers (don't use "\p" because a
-" delay before pressing "p" would accidentally paste).
-" ,l       : list buffers
-" ,b ,f ,g : go back/forward/last-used
-" ,1 ,2 ,3 : go to buffer 1/2/3 etc
-nnoremap <Leader>l :ls<CR>:buffer<space>
-nnoremap <Leader>p :bp<CR>
-nnoremap <Leader>n :bn<CR>
-nnoremap <Leader>g :e#<CR>
-nnoremap <Leader>1 :1b<CR>
-nnoremap <Leader>2 :2b<CR>
-nnoremap <Leader>3 :3b<CR>
-nnoremap <Leader>4 :4b<CR>
-nnoremap <Leader>5 :5b<CR>
-nnoremap <Leader>6 :6b<CR>
-nnoremap <Leader>7 :7b<CR>
-nnoremap <Leader>8 :8b<CR>
-nnoremap <Leader>9 :9b<CR>
-nnoremap <Leader>0 :10b<CR>
-" It's useful to show the buffer number in the status line.
-set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+" {{{ Miscellaneous
+" Map the use to write to read-only files with sudo by using :w!!
+cmap w!! w !sudo tee % >/dev/null
 
 " Set the phpunit command for CakePHP
 let g:phpunit_cmd = "~/Developer/socsoc/app/Console/cake test app "
@@ -357,3 +354,69 @@ function! CakePHPTestCallback(args)
     endif
     return l:args
 endfunction
+" }}}
+
+" {{{ Buffers
+"
+" mappings:
+" map  - keymap for normal, visual, select, oper.pending mode
+" map! - keymap for insert and command-line mode 
+" nmap - Display normal mode maps
+" imap - Display insert mode maps
+" vmap - Display visual and select mode maps
+" smap - Display select mode maps
+" xmap - Display visual mode maps
+" cmap - Display command-line mode maps
+" omap - Display operator pending mode maps
+
+" This allows buffers to be hidden if you've modified a bufer.
+" This is almost a must if you wish to use buffers in this way
+set hidden
+" Mappings to access buffers (don't use "\p" because a
+" delay before pressing "p" would accidentally paste).
+" ,l       : list buffers
+" ,b ,f ,g : go back/forward/last-used
+" ,1 ,2 ,3 : go to buffer 1/2/3 etc
+nnoremap <Leader>l :ls<CR>:buffer<space>
+nnoremap <Leader>p :bp<CR>
+nnoremap <Leader>n :bn<CR>
+nnoremap <Leader>g :e#<CR>
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
+nnoremap <Leader>0 :10b<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+
+" It's useful to show the buffer number in the status line.
+set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+" }}}
+
+" VIMWIKI {{{
+set nocompatible
+filetype plugin on
+syntax on
+
+let g:vimwiki_list = [{'path':'~/Dropbox/vimwiki', 'path_html':'~/Dropbox/vimwiki_html/'}]
+
+let wiki_1 = {}
+let wiki_1.path = '~/Dropbox/vimwiki'
+let wiki_1.html_template = '~/Dropbox/vimwiki_html'
+" let wiki_1.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
+
+let g:vimwiki_list = [wiki_1]
+
+"let wiki_2 = {}
+"let wiki_2.path = '~/project_docs/'
+"let wiki_2.index = 'main'
+"
+"let g:vimwiki_list = [wiki_1, wiki_2]
+" }}}
