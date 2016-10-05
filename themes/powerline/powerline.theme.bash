@@ -10,15 +10,18 @@ yellow_light=103
 grey_dark=235
 grey_light=7
 black=232
+white=15
 
 #THEME_PROMPT_SEPARATOR=""
 #THEME_PROMPT_SEPARATOR="♂"
 #THEME_PROMPT_SEPARATOR="☠"
 THEME_PROMPT_SEPARATOR="★"
 
-SHELL_SSH_CHAR="✆"
+#SHELL_SSH_CHAR="✆"
+SHELL_SSH_CHAR=""
 SHELL_THEME_PROMPT_COLOR=32
 SHELL_SSH_THEME_PROMPT_COLOR=235
+SHELL_SSH_THEME_FG_COLOR=252
 
 VIRTUALENV_CHAR="ⓔ "
 VIRTUALENV_THEME_PROMPT_COLOR=35
@@ -43,7 +46,7 @@ SCM_THEME_PROMPT_UNTRACKED_COLOR=033
 
 #CWD_THEME_PROMPT_COLOR=240
 CWD_THEME_PROMPT_COLOR=143
-CWD_THEME_FG_COLOR=235
+CWD_THEME_FG_COLOR=0
 
 LAST_STATUS_THEME_PROMPT_COLOR=52
 
@@ -58,11 +61,12 @@ function set_rgb_color {
     echo -e "\[\033[${fg}${bg}m\]"
 }
 
-# the first part of the prompt
+# the first part of the prompt (the user- and machinename)
 function powerline_shell_prompt {
     if [[ -n "${SSH_CLIENT}" ]]; then
-        SHELL_PROMPT="${bold_black}$(set_rgb_color - ${SHELL_SSH_THEME_PROMPT_COLOR}) ${SHELL_SSH_CHAR} \u@\h ${normal}"
-        LAST_THEME_COLOR=${SHELL_SSH_THEME_PROMPT_COLOR}
+        SHELL_PROMPT="${bold_black}$(set_rgb_color ${SHELL_SSH_THEME_FG_COLOR} ${SHELL_SSH_THEME_PROMPT_COLOR}) ${SHELL_SSH_CHAR} \u@\h ${normal}"
+        #LAST_THEME_COLOR=${SHELL_SSH_THEME_PROMPT_COLOR}
+        LAST_THEME_COLOR=${white}
     else
         SHELL_PROMPT="${bold_black}$(set_rgb_color - ${SHELL_SSH_THEME_PROMPT_COLOR}) \u@\h ${normal}"
         LAST_THEME_COLOR=${SHELL_THEME_PROMPT_COLOR}
