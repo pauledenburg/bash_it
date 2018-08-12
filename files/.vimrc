@@ -34,23 +34,6 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 "}}}
 
 
-" {{{ Tabs
-map <leader>t1 :tabm 1<CR>
-map <leader>t2 :tabm 2<CR>
-map <leader>t3 :tabm 3<CR>
-map <leader>t4 :tabm 4<CR>
-map <leader>t5 :tabm 5<CR>
-map <leader>t6 :tabm 6<CR>
-map <leader>t7 :tabm 7<CR>
-map <leader>t8 :tabm 8<CR>
-map <leader>t9 :tabm 9<CR>
-map <leader>t0 :tablast<CR>
-map <leader>tn :tabn<CR>
-map <leader>tp :tabp<CR>
-map <leader>tf :tabfirst<CR>
-map <leader>tc :tabclose<CR>
-"}}}
-
 " Syntax {{{
 
 " enable syntax highlighting
@@ -81,6 +64,11 @@ set hlsearch
 " and for plugins that are filetype specific.
 " filetype indent plugin on
 "
+if has("autocmd")
+	filetype on
+	filetype indent on
+	filetype plugin on
+endif
 
 "}}}
 
@@ -93,6 +81,10 @@ set smartcase
 "}}}
 
 " Miscellaneous {{{
+" Set encoding to UTF-8
+set encoding=utf-8  " The encoding displayed.
+set fileencoding=utf-8  " The encoding written to file.
+
 " Allow vim settings in the header-comment
 set modeline
 
@@ -151,16 +143,10 @@ nnoremap <leader>et :vsp ~/.tmux.conf<CR>      " edit tmux.conf
 nnoremap <leader>sv :source $MYVIMRC<CR>    " execute the commands in .vimrc
 
 " Toggle the Tagbar (plugin: http://majutsushi.github.io/tagbar/)
-nmap <F8> :TagbarToggle<CR>
+nmap <leader>t :TagbarToggle<CR>
 
 " Set w!! to overwrite read-only file with sudo
 cmap w!! w !sudo tee > /dev/null %
-"}}}
-
-"{{{ VIMWIKI
-set nocompatible
-filetype plugin on
-"syntax on
 "}}}
 
 " ControlP plugin{{{
@@ -328,8 +314,6 @@ set t_ut=
 "}}}
 
 " {{{ Miscellaneous
-" Map the use to write to read-only files with sudo by using :w!!
-cmap w!! w !sudo tee % >/dev/null
 
 " Set the phpunit command for CakePHP
 let g:phpunit_cmd = "~/Developer/socsoc/app/Console/cake test app "
@@ -399,6 +383,46 @@ nmap <leader>bq :bp <BAR> bd #<CR>
 " It's useful to show the buffer number in the status line.
 set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 " }}}
+
+" {{{ Tabs
+" Tabs can contain windows with one or more buffers
+
+" For Mac - use the apple-key
+map <D-S-]> gt
+map <D-S-[> gT
+map <D-1> 1gt
+map <D-2> 2gt
+map <D-3> 3gt
+map <D-4> 4gt
+map <D-5> 5gt
+map <D-6> 6gt
+map <D-7> 7gt
+map <D-8> 8gt
+map <D-9> 9gt
+map <D-0> :tablast<CR>
+
+" for linux and windows users (using the control key)
+map <C-S-]> gt
+map <C-S-[> gT
+map <C-1> 1gt
+map <C-2> 2gt
+map <C-3> 3gt
+map <C-4> 4gt
+map <C-5> 5gt
+map <C-6> 6gt
+map <C-7> 7gt
+map <C-8> 8gt
+map <C-9> 9gt
+map <C-0> :tablast<CR>
+"}}}
+
+" {{{ Windows
+" navigate through windows with ctrl+[hjkl]
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+"}}}
 
 " VIMWIKI {{{
 set nocompatible
