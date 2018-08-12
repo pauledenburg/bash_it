@@ -2,8 +2,8 @@
 cite about-alias
 about-alias 'general aliases'
 
-alias tmux="TERM=screen-256color-bce tmux"
-alias tm='tmux'
+alias tmux="TERM=screen-256color-bce tmux -u"
+alias tm='tmux -u'
 
 alias tmscphp='tmux source ~/.tmux/cakephp'
 alias tmslog='tmux source ~/.tmux/logging'
