@@ -21,10 +21,12 @@ function sshlist() {
 function pubkey(){
 	# file /usr/bin/pubkey: Pubkey, kopieer je public key naar een opgegeven server
 	if [[ $1 = "" ]]; then
-	    echo "Usage: $0 [hostname]"
-	    exit 1
-	fi
-	ssh $1 'if [ ! -d ~/.ssh ]; then mkdir ~/.ssh; fi'
-	cat ~/.ssh/id_dsa.pub | ssh $1 "cat >> ~/.ssh/authorized_keys"
-	echo "Done"
+	    echo "Usage: $0 <hostname> [pub_key_file]"
+    elif [[ $2 = "" ]]; then
+        2="~/.ssh/id_rsa.pub"
+  	else
+    	ssh $1 'if [ ! -d ~/.ssh ]; then mkdir ~/.ssh; chmod 750 ~/.ssh; fi'
+    	cat $2 | ssh $1 "cat >> ~/.ssh/authorized_keys; chmod 0600 ~/.ssh/authorized_keys"
+    	echo "Done"
+    fi
 }
