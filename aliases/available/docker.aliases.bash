@@ -13,6 +13,7 @@ alias drmf='docker rm -f'
 alias drmfa='docker rm -f $(docker ps -aq)'
 alias drmi='docker rmi'
 alias drmia='docker rmi $(docker images -q -f dangling=true)'
+alias drmc='docker ps -aq --no-trunc | xargs docker rm'
 
 # docker compose
 alias dc='docker-compose'
