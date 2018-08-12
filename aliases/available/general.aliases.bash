@@ -3,12 +3,13 @@ about-alias 'general aliases'
 
 # List directory contents
 alias sl=ls
-alias la='ls -AF'       # show hidden
-alias ll='ls -l'
+alias la='ls -AFG'       # show hidden
+alias ll='ls -lG'
+alias lla='ls -laG'
 alias l='ls -aG'
 alias l1='ls -1'
-alias lrt='ls -lrt '
-alias lart='ls -lart '
+alias lrt='ls -lrtG '
+alias lart='ls -lartG '
 
 alias lrtlog='ls -lart /var/log'
 alias a2lrtlog='ls -lart /var/log/apache2'
@@ -56,3 +57,6 @@ fi
 # Directory
 alias	md='mkdir -p'
 alias	rd='rmdir'
+
+# Chrome
+alias chrome='/usr/bin/open -a "/Applications/Google Chrome.app"'
