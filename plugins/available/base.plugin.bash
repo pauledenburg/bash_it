@@ -25,6 +25,13 @@ myip ()
     echo -e "Your public IP is: ${echo_bold_green} $res ${echo_normal}"
 }
 
+ping8 ()
+{
+    about 'ping 8.8.8.8 to make sure you are connected to the internet'
+    group 'base'
+    ping 8.8.8.8
+}
+
 
 pickfrom ()
 {
@@ -212,4 +219,23 @@ buf ()
     local filename=$1
     local filetime=$(date +%Y%m%d_%H%M%S)
     cp ${filename} ${filename}_${filetime}
+}
+
+rmcrap ()
+{
+	read -p "want to remove files with extensions url, nzb, nfo? [Yn] " decision
+
+	case "$decision" in
+		[nN])
+			echo 'exiting on users request';
+			exit;
+			;;
+		*)
+		 	find  . -name "ANTI-EIN" -o -name "*.url" -o -name "*.nzb" -o -name "*.nfo" -o -name "*.sfv" -o -name "*.srr" -o -name "*sample*" -o -empty | \
+				while read file; do 
+					echo "$file";
+					rm -r "$file"; 
+				done;
+		 	find . -type d -empty -exec rm -r "{}" \;
+	esac
 }
