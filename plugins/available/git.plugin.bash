@@ -1,6 +1,59 @@
 cite about-plugin
 about-plugin 'git helper functions'
 
+function gmm {
+	echo "I will:"
+	echo "  * fetch all upstreams"
+	echo "  * checkout master"
+	echo "  * merge master with upstream/master"
+	read -p "Continue? [Yn]" continue
+
+	while [ true ]; do
+		case $continue
+		in
+		[nN])
+		  echo "Ending on users' request"
+		  return 1
+		  break
+		  ;;
+		*)
+			git fetch --all
+			git checkout master
+			git merge upstream/master
+		  break
+		  ;;
+		esac
+    done
+
+}
+
+function git_maid {
+    mergedBranches=$(git branch --merged | grep -v "\*" | xargs -n 1)
+
+	echo "The following local branches have been merged in master. You can remove these. "
+	echo ""
+	echo $mergedBranches | xargs -n 1 
+	echo ""
+	read -p "Do you want me to do that? [Ny] " RESP
+	while [ true ]; do
+		case $RESP
+		in
+		[yY])
+		  echo "Removing these local branches"
+		  echo $mergedBranches | xargs -n 1 git branch -d 
+		  break
+		  ;;
+		[nN])
+		  echo "Ending on users' request"
+		  return 1
+		  break
+		  ;;
+		*)
+		  echo "Please enter Y or N"
+		esac
+    done
+}
+
 function git_remote {
   about 'adds remote $GIT_HOSTING:$1 to current repo'
   group 'git'
