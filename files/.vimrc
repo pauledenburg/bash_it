@@ -244,8 +244,8 @@ nnoremap <CR> za
 
 " each time you close a file, its fold state will be saved and reloaded
 " when you reopen the file in Vim
-au BufWinLeave * mkview
-au BufWinEnter * silent loadview
+au BufWinLeave ?* mkview
+au BufWinEnter ?* silent loadview
 
 " }}}
 
