@@ -231,7 +231,7 @@ rmcrap ()
 			exit;
 			;;
 		*)
-		 	find  . -name "ANTI-EIN" -o -name "*.url" -o -name "*.nzb" -o -name "*.nfo" -o -name "*.sfv" -o -name "*.srr" -o -name "*sample*" -o -empty | \
+		 	find  . -name "ANTI-EIN" -o -name "*.url" -o -name "*.URL" -o -name "*.nzb" -o -name "*.nfo" -o -name "*.sfv" -o -name "*.srr" -o -name "*sample*" -o -empty | \
 				while read file; do 
 					echo "$file";
 					rm -r "$file"; 
