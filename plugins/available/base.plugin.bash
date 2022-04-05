@@ -1,6 +1,22 @@
 cite about-plugin
 about-plugin 'miscellaneous tools'
 
+sphp ()
+{
+    about 'change php version'
+    group 'base'
+
+	if [ ! -f "/usr/bin/php$@" ]; then
+      echo -e "${echo_bold_red} Could not find /usr/bin/php$@ ${echo_normal}"
+	  return 1
+	fi
+
+    echo -e "Changing your PHP version to ${echo_bold_green} $1 ${echo_normal}"
+
+	sudo update-alternatives --set php /usr/bin/php$@
+	php -v
+}
+
 ips ()
 {
     about 'display all ip addresses for this host'
@@ -212,4 +228,23 @@ buf ()
     local filename=$1
     local filetime=$(date +%Y%m%d_%H%M%S)
     cp ${filename} ${filename}_${filetime}
+}
+
+rmcrap ()
+{
+ read -p "want to remove files with extensions url, nzb, nfo and empty directories? [Yn] " decision
+
+ case "$decision" in
+  [nN])
+   echo 'exiting on users request';
+   exit;
+   ;;
+  *)
+    find . -name "ANTI-EIN" -o -name "*.url" -o -name "*.nzb" -o -name "*.nfo" -o -name "*.sfv" -o -name "*.srr" -o -name "*sample*" -o -name "*.rev" -o -name "*.URL" -o -empty | egrep -v '_UNPACK_' | \
+    while read file; do
+     echo "$file";
+     rm -r "$file";
+    done;
+    find . -type d -empty -exec rm -r "{}" \;
+ esac
 }
