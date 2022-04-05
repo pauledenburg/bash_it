@@ -22,3 +22,6 @@ alias dcup='docker-compose up'
 alias dcs='docker-compose stop'
 alias dcstop='docker-compose stop'
 alias dcps='docker-compose ps'
+
+alias dcdev='docker-compose -f docker-compose-dev.yml'
+alias dctest='docker-compose -f docker-compose-test.yml'
