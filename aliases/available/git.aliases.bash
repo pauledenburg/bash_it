@@ -16,6 +16,7 @@ alias gco='git checkout'
 alias gcount='git shortlog -sn'
 alias gcp='git cherry-pick'
 alias gdel='git branch -D'
+alias gfa='git fetch --all'
 alias gdv='git diff -w "$@" | vim -R -'
 alias get='git'
 alias gexport='git archive --format zip --output'
@@ -38,6 +39,7 @@ alias gst='git status'
 alias gup='git fetch && git rebase'
 alias gus='git reset HEAD'
 alias gw="git whatchanged"
+alias gclean="git branch --merged master | grep -v '^[ *]*master$' | xargs git branch -d; git remote prune origin"
 
 if [ -z "$EDITOR" ]; then
     case $OSTYPE in

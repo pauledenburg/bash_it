@@ -19,10 +19,12 @@ alias dclean='docker images --no-trunc | grep "<none>" | awk "{ print $3 }" | xa
 
 # docker compose
 alias dc='docker compose'
-alias dcu='docker compose up'
-alias dcup='docker compose up'
+alias dcdev='docker-compose -f docker-compose-dev.yml'
+alias dcdown='docker compose down'
+alias dcps='docker compose ps'
+alias dcrm='docker compose rm'
 alias dcs='docker compose stop'
 alias dcstop='docker compose stop'
-alias dcps='docker compose ps'
-alias dcdown='docker compose down'
-alias dcrm='docker compose rm'
+alias dctest='docker-compose -f docker-compose-test.yml'
+alias dcu='docker compose up'
+alias dcup='docker compose up'
