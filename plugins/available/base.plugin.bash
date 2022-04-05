@@ -41,6 +41,13 @@ myip ()
     echo -e "Your public IP is: ${echo_bold_green} $res ${echo_normal}"
 }
 
+ping8 ()
+{
+    about 'ping 8.8.8.8 to make sure you are connected to the internet'
+    group 'base'
+    ping 8.8.8.8
+}
+
 
 pickfrom ()
 {

@@ -45,9 +45,14 @@ set number
 
 " Indentation settings for using 2 spaces instead of tabs.
 " Do not change 'tabstop' from its default value of 8 with this setup.
-set tabstop=4   " number of visual spaces per TAB
+"set tabstop=4   " number of visual spaces per TAB
 " set softtabstop=2 " the number of spaces that is inserted when you hit <TAB>
-" set expandtab   " use spaces instead of tabs (use for Python!)
+
+" expandtab allows to replace the tabs by white spaces characters (= spaces)
+set expandtab 
+
+" make the tabulations be 4 white spaces
+set shiftwidth=4
 
 "
 " Highlight searches (use <C-L> to temporarily turn off highlighting; see the
@@ -239,8 +244,8 @@ nnoremap <CR> za
 
 " each time you close a file, its fold state will be saved and reloaded
 " when you reopen the file in Vim
-au BufWinLeave * mkview
-au BufWinEnter * silent loadview
+au BufWinLeave ?* mkview
+au BufWinEnter ?* silent loadview
 
 " }}}
 
@@ -443,4 +448,9 @@ let g:vimwiki_list = [wiki_1]
 "let wiki_2.index = 'main'
 "
 "let g:vimwiki_list = [wiki_1, wiki_2]
+" }}}
+
+" UNDO {{{
+set undodir=~/.vim/undodir
+set undofile " Maintain undo history between sessions
 " }}}
