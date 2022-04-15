@@ -15,7 +15,7 @@ alias drmi='docker rmi'
 alias drmia='docker rmi $(docker images -q -f dangling=true)'
 alias drmc='docker ps -aq --no-trunc | xargs docker rm'
 alias deit='docker exec -it'
-alias dclean="docker images --no-trunc | grep '<none>' | awk '{print \$3}' | while read img; do echo \"removing image \${img}\"; docker rmi -f \${img}; done; docker ps --filter status=dead --filter status=exited -aq | xargs docker rm -v; docker volume ls -qf dangling=true | xargs docker volume rm"
+alias dclean="docker images --no-trunc | grep '<none>' | awk '{print \$3}' | while read img; do echo \"removing image \${img}\"; docker rmi -f \${img}; done; docker ps --filter status=dead --filter status=exited -aq | xargs docker rm -v; docker volume ls -qf dangling=true | xargs docker volume rm; docker image prune -f; docker container prune -f"
 
 # docker compose
 alias dc='docker-compose'
