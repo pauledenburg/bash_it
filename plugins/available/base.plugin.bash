@@ -16,14 +16,12 @@ sphp ()
     homebrew_path=$(brew --prefix)
     brew_prefix=$(brew --prefix | sed 's#/#\\\/#g')
     
-    brew_array=("5.6","7.0","7.1","7.2","7.3","7.4","8.0","8.1")
-    php_array=("php@5.6" "php@7.0" "php@7.1" "php@7.2" "php@7.3" "php@7.4" "php@8.0" "php@8.1")
+    brew_array=("7.4","8.0","8.1" "8.2")
+    php_array=("php@7.4" "php@8.0" "php@8.1" "php@8.2")
     php_installed_array=()
     php_version="php@$1"
     php_opt_path="$brew_prefix\/opt\/"
     
-    php5_module="php5_module"
-    apache_php5_lib_path="\/lib\/httpd\/modules\/libphp5.so"
     php7_module="php7_module"
     apache_php7_lib_path="\/lib\/httpd\/modules\/libphp7.so"
     php8_module="php_module"
@@ -79,43 +77,17 @@ sphp ()
                 brew unlink $i
             done
             brew link --force "$php_version"
+
+            echo "Uninstalling xdebug"
+            pecl uninstall -r xdebug > /dev/null
+            echo "Installing xdebug"
+            pecl install xdebug > /dev/null
+
+            # remove the extra xdebug inclusion which is added automatically by pecl
+            echo "Removing duplicate xdebug inclusion in /opt/homebrew/etc/php/${1}/php.ini"
+
+            sed -i '' -e '/zend_extension="xdebug.so"/d' /opt/homebrew/etc/php/${1}/php.ini
     
-            # Switch apache
-            if [[ $apache_change -eq 1 ]]; then
-                echo "Switching your apache conf"
-    
-                for j in ${php_installed_array[@]}; do
-                    loop_php_module="$php5_module"
-                    loop_apache_php_lib_path="$apache_php5_lib_path"
-                    loop_php_version=$(echo "$j" | sed 's/^php@//' | sed 's/\.//')
-                    if [[ loop_php_version -ge 70 && loop_php_version -lt 80 ]]; then
-                        loop_php_module="$php7_module"
-                        loop_apache_php_lib_path="$apache_php7_lib_path"
-                    elif [[ loop_php_version -ge 80 ]]; then
-                        loop_php_module="$php8_module"
-                        loop_apache_php_lib_path="$apache_php8_lib_path"
-                    fi
-                    apache_module_string="LoadModule $loop_php_module $php_opt_path$j$loop_apache_php_lib_path"
-                    comment_apache_module_string="#$apache_module_string"
-    
-                    # If apache module string within apache conf
-                    if grep -q "$apache_module_string" "$apache_conf_path"; then
-                        # If apache module string not commented out already
-                        if ! grep -q "$comment_apache_module_string" "$apache_conf_path"; then
-                            sed -i.bak "s/$apache_module_string/$comment_apache_module_string/g" $apache_conf_path
-                        fi
-                    # Else the string for the php module is not in the apache config then add it
-                    else
-                        sed -i.bak "/$native_osx_php_apache_module/a\\
-    $comment_apache_module_string\\
-    " $apache_conf_path
-                    fi
-                done
-                sed -i.bak "s/\#LoadModule $php_module $apache_php_mod_path/LoadModule $php_module $apache_php_mod_path/g" $apache_conf_path
-                echo "Restarting apache"
-                brew services stop httpd
-                brew services start httpd
-            fi
     
     	echo ""
             php -v
