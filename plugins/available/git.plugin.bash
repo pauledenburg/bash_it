@@ -251,3 +251,20 @@ else
 fi
 }
 
+
+# Using AI to create git commit messages
+# with tool AICOMMITS: https://github.com/Nutlope/aicommits
+#
+# npm install -g aicommits
+function commit() {
+   commitMessage="$*"
+
+   git add .
+
+   if [ "$commitMessage" = "" ]; then
+      aicommits
+      return
+   fi
+ 
+   eval "git commit -a -m '${commitMessage}'"
+}
