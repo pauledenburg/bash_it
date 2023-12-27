@@ -1,7 +1,7 @@
 cite 'about-alias'
 about-alias 'vim abbreviations'
 
-alias vi='vim'
+alias vi='nvim'
 alias v='mvim --remote-tab'
 
 # Vimwiki

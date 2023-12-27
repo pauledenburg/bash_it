@@ -239,7 +239,7 @@ buf ()
 
 rmcrap ()
 {
- read -p "want to remove files with extensions url, nzb, nfo and empty directories? [Yn] " decision
+ read -p "want to remove files with extensions url, nzb, nfo, 'Video Player', random iamges and empty directories? [Yn] " decision
 
  case "$decision" in
   [nN])
@@ -247,7 +247,7 @@ rmcrap ()
    exit;
    ;;
   *)
-    find . -name "ANTI-EIN" -o -name "*.url" -o -name "*.nzb" -o -name "*.nfo" -o -name "*.sfv" -o -name "*.srr" -o -name "*sample*" -o -name "*.rev" -o -name "*.URL" -o -empty | egrep -v '_UNPACK_' | \
+    find . -name "ANTI-EIN" -o -name "*.url" -o -name "*.nzb" -o -name "*.nfo" -o -name "*.sfv" -o -name "*.srr" -o -name "*sample*" -o -name "*.rev" -o -name "*.URL" -o -name "*.DS_Store" -o -name "*Video Player*" -o -regex '.*/[A-Z0-9]\{7\}\.jpg' -o -empty | egrep -v '_UNPACK_' | \
     while read file; do
      echo "$file";
      rm -r "$file";
