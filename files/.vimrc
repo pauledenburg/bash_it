@@ -45,8 +45,8 @@ set number
 
 " Indentation settings for using 2 spaces instead of tabs.
 " Do not change 'tabstop' from its default value of 8 with this setup.
-"set tabstop=4   " number of visual spaces per TAB
-" set softtabstop=2 " the number of spaces that is inserted when you hit <TAB>
+set tabstop=4   " number of visual spaces per TAB
+set softtabstop=4 " the number of spaces that is inserted when you hit <TAB>
 
 " expandtab allows to replace the tabs by white spaces characters (= spaces)
 set expandtab 
@@ -124,7 +124,8 @@ set cmdheight=2
 "
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
-nnoremap <C-L> :nohl<CR><C-L>
+"nnoremap <C-L> :nohl<CR><C-L>
+nnoremap <C-L> :nohl<CR>
 
 " colorscheme badwolf
 colorscheme badwolf
