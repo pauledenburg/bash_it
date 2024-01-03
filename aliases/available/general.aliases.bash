@@ -17,6 +17,8 @@ alias a2lrt='ls -lart /etc/apache2/sites-enabled'
 
 alias _="sudo"
 
+alias j="jump "
+
 if [ $(uname) = "Linux" ]
 then
   alias ls="ls --color=auto"
@@ -69,4 +71,4 @@ alias chrome='/usr/bin/open -a "/Applications/Google Chrome.app"'
 alias pstorm='open -a PhpStorm'
 
 alias p='php -dxdebug.mode=off vendor/bin/pest --parallel'
-alias pf='php -dxdebug.mode=off vendor/bin/pest --filter'
+alias p='php -dxdebug.mode=off vendor/bin/pest --filter'
