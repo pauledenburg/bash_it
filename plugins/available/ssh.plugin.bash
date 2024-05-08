@@ -30,3 +30,7 @@ function pubkey(){
     	echo "Done"
     fi
 }
+
+function mm2(){
+  ssh mm2
+}

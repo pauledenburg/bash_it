@@ -28,3 +28,7 @@ alias dcstop='docker-compose stop'
 alias dctest='docker-compose -f docker-compose-test.yml'
 alias dcu='docker-compose up'
 alias dcup='docker-compose up'
+
+# kubernetes
+alias mk='minikube'
+alias mkctl='minikube kubectl --'

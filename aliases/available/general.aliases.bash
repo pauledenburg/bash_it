@@ -47,7 +47,6 @@ alias ...='cd ../..'     # Go up two directories
 alias ....='cd ../../..' # Go up three directories
 alias -- -='cd -'        # Go back
 
-alias p='docker-compose exec app vendor/bin/pest'
 alias e='./dev'
 alias a='./dev artisan'
 
@@ -71,4 +70,4 @@ alias chrome='/usr/bin/open -a "/Applications/Google Chrome.app"'
 alias pstorm='open -a PhpStorm'
 
 alias p='php -dxdebug.mode=off vendor/bin/pest --parallel'
-alias p='php -dxdebug.mode=off vendor/bin/pest --filter'
+alias pf='php -dxdebug.mode=off vendor/bin/pest --filter'

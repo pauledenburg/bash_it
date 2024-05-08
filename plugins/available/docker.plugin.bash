@@ -7,7 +7,7 @@ function dclear {
 
   echo ""
   echo "Pruning: Remove all unused containers, networks, images (both dangling and unreferenced) and volumes"
-  docker system prune --volumes
+  docker system prune --all --force
 
   echo ""
   echo "Clear images"
