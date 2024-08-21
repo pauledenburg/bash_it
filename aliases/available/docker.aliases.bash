@@ -28,6 +28,9 @@ alias dctest='docker compose -f docker compose-test.yml'
 alias dcu='docker compose up'
 alias dcup='docker compose up'
 
+# docker swarm
+alias dsls='docker service ls'
+
 # kubernetes
 alias mk='minikube'
 alias mkctl='minikube kubectl --'

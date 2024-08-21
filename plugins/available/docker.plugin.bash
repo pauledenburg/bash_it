@@ -56,35 +56,75 @@ function docker-bash-root {
 
 # Function to display matching containers and allow user selection
 function deit {
-    container_query="$1"
+    service_query="$1"
     shift 1
     container_command="${@:-bash}"  # Default to 'bash' if no command is provided
 
     # Get the list of matching container names
-    matching_containers=($(docker ps --format '{{.Names}}' | grep "$container_query"))
-    count=${#matching_containers[@]}
+    matching_services=($(docker ps --format '{{.Names}}' | grep "$service_query"))
+    count=${#matching_services[@]}
 
     if [ "$count" -eq 0 ]; then
-        echo "No containers found with '$container_query' in the name."
+        echo "No containers found with '$service_query' in the name."
         return 1
     elif [ "$count" -eq 1 ]; then
-        container_name="${matching_containers[0]}"
-        echo "Found container: $container_name"
-        echo "Executing: docker exec -it $container_name $container_command"
-        docker exec -it "$container_name" $container_command
+        service_name="${matching_services[0]}"
+        echo "Found container: $service_name"
+        echo "Executing: docker exec -it $service_name $container_command"
+        docker exec -it "$service_name" $container_command
     else
-        echo "Multiple containers found with '$container_query' in the name:"
-        for i in "${!matching_containers[@]}"; do
-            echo "$((i + 1)). ${matching_containers[i]}"
+        echo "Multiple containers found with '$service_query' in the name:"
+        for i in "${!matching_services[@]}"; do
+            echo "$((i + 1)). ${matching_services[i]}"
         done
 
         while true; do
             read -p "Choose the number of the container you want to use: " choice
             if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 1 ] && [ "$choice" -le "$count" ]; then
-                container_name="${matching_containers[$((choice - 1))]}"
-                echo "Selected container: $container_name"
-                echo "Executing: docker exec -it $container_name $container_command"
-                docker exec -it "$container_name" $container_command
+                service_name="${matching_services[$((choice - 1))]}"
+                echo "Selected container: $service_name"
+                echo "Executing: docker exec -it $service_name $container_command"
+                docker exec -it "$service_name" $container_command
+                break
+            else
+                echo "Invalid choice. Please try again."
+            fi
+        done
+    fi
+}
+
+function dsps {
+    service_query="$1"
+    shift 1
+
+    # Get the list of matching container names
+    matching_services=($(docker service ls --format '{{.Name}}' | grep "$service_query"))
+    count=${#matching_services[@]}
+
+    if [ "$count" -eq 0 ]; then
+        echo "No services found with '$service_query' in the name."
+        return 1
+    elif [ "$count" -eq 1 ]; then
+        service_name="${matching_services[0]}"
+        echo "Found service: $service_name"
+        echo "Executing: docker service ps $service_name"
+        docker service ps "$service_name"
+    else
+        echo "Multiple services found with '$service_query' in the name:"
+        for i in "${!matching_services[@]}"; do
+            echo "$((i + 1)). ${matching_services[i]}"
+        done
+
+        while true; do
+            read -p "Choose the number of the service you want to use: " choice
+            if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 1 ] && [ "$choice" -le "$count" ]; then
+                service_name="${matching_services[$((choice - 1))]}"
+                echo "Selected container: $service_name"
+                echo "Executing: docker exec -it $service_name $container_command"
+                docker service ps "$service_name"
+                break
+            elif [[ "$choice" =~ ^[qQ]+$ ]]; then
+                echo "Exiting the script."
                 break
             else
                 echo "Invalid choice. Please try again."
