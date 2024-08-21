@@ -268,3 +268,54 @@ function commit() {
  
    eval "git commit -a -m '${commitMessage}'"
 }
+
+function gprune() {
+    about 'remove local branches that do not exist upstream'
+    group 'git'
+
+    # Kleuren voor output
+    RED='\033[0;31m'
+    GREEN='\033[0;32m'
+    YELLOW='\033[1;33m'
+    NC='\033[0m' # No Color
+    
+    # Update de remote informatie
+    echo -e "${YELLOW}Updating remote information...${NC}"
+    git fetch --all --prune
+    
+    # Haal alle lokale branches op die geen remote tracking hebben of waarvan de remote is verdwenen
+    obsolete_branches=$(git branch -vv | grep ': gone]' | awk '{print $1}')
+    
+    # Als er geen verouderde branches zijn, stop het script
+    if [ -z "$obsolete_branches" ]; then
+        echo -e "${GREEN}Er zijn geen lokale branches die verwijderd kunnen worden.${NC}"
+        return 0
+    fi
+    
+    # Toon de verouderde branches
+    echo -e "${YELLOW}De volgende lokale branches bestaan niet (meer) op de remote:${NC}"
+    echo "$obsolete_branches"
+    
+    # Vraag de gebruiker of ze de branches willen verwijderen
+    echo -e "\n${YELLOW}Wil je deze branches verwijderen? (y/n)${NC}"
+    read -r response
+    
+    if [[ "$response" =~ ^([yY][eE][sS]|[yY])|[yY]$ ]]; then
+        for branch in $obsolete_branches; do
+	    # moet niet de huidige branch zijn
+            if [ "$branch" = "$(git rev-parse --abbrev-ref HEAD)" ]; then
+                echo -e "${YELLOW}Kan de huidige branch '$branch' niet verwijderen. Schakel eerst over naar een andere branch.${NC}"
+            else
+                echo -e "${YELLOW}Verwijderen van branch: $branch${NC}"
+                if git branch -D "$branch"; then
+                    echo -e "${GREEN}Branch $branch succesvol verwijderd.${NC}"
+                else
+                    echo -e "${RED}Fout bij het verwijderen van branch $branch.${NC}"
+                fi
+            fi
+        done
+        echo -e "${GREEN}Alle geselecteerde branches zijn verwijderd.${NC}"
+    else
+        echo -e "${YELLOW}Geen branches verwijderd.${NC}"
+    fi
+}

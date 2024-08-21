@@ -16,21 +16,11 @@ sphp ()
     homebrew_path=$(brew --prefix)
     brew_prefix=$(brew --prefix | sed 's#/#\\\/#g')
     
-    brew_array=("7.4","8.0","8.1" "8.2")
-    php_array=("php@7.4" "php@8.0" "php@8.1" "php@8.2")
+    brew_array=("8.1" "8.2" "8.3")
+    php_array=("php@8.1" "php@8.2" "php@8.3")
     php_installed_array=()
     php_version="php@$1"
     php_opt_path="$brew_prefix\/opt\/"
-    
-    php7_module="php7_module"
-    apache_php7_lib_path="\/lib\/httpd\/modules\/libphp7.so"
-    php8_module="php_module"
-    apache_php8_lib_path="\/lib\/httpd\/modules\/libphp.so"
-    
-    native_osx_php_apache_module="LoadModule ${php5_module} libexec\/apache2\/libphp5.so"
-    if [ "${osx_version}" -ge "101300" ]; then
-        native_osx_php_apache_module="LoadModule ${php7_module} libexec\/apache2\/libphp7.so"
-    fi
     
     # Has the user submitted a version required
     if [[ -z "$1" ]]; then
@@ -40,22 +30,6 @@ sphp ()
         echo
         return
     fi
-    
-    php_module="$php5_module"
-    apache_php_lib_path="$apache_php5_lib_path"
-    
-    simple_php_version=$(echo "$php_version" | sed 's/^php@//' | sed 's/\.//')
-    if [[ simple_php_version -ge 70 && simple_php_version -lt 80 ]]; then
-        php_module="$php7_module"
-        apache_php_lib_path="$apache_php7_lib_path"
-    elif [[ simple_php_version -ge 80 ]]; then
-        php_module="$php8_module"
-        apache_php_lib_path="$apache_php8_lib_path"
-    fi
-    
-    apache_change=0
-    apache_conf_path="$homebrew_path/etc/httpd/httpd.conf"
-    apache_php_mod_path="$php_opt_path$php_version$apache_php_lib_path"
     
     # What versions of php are installed via brew
     for i in ${php_array[*]}; do
@@ -122,7 +96,7 @@ myip ()
 {
     about 'displays your ip address, as seen by the Internet'
     group 'base'
-    res=$(curl -s checkip.dyndns.org | grep -Eo '[0-9\.]+')
+    res=$(curl -s ifconfig.me | grep -Eo '[0-9\.]+')
     echo -e "Your public IP is: ${echo_bold_green} $res ${echo_normal}"
 }
 
@@ -132,7 +106,6 @@ ping8 ()
     group 'base'
     ping 8.8.8.8
 }
-
 
 pickfrom ()
 {
@@ -213,29 +186,11 @@ pcurl ()
     curl "${1}" | open -f -a $PREVIEW
 }
 
-pri ()
-{
-    about 'display information about Ruby classes, modules, or methods, in Preview'
-    param '1: Ruby method, module, or class'
-    example '$ pri Array'
-    group 'base'
-    ri -T "${1}" | open -f -a $PREVIEW
-}
-
 quiet ()
 {
     about 'what *does* this do?'
     group 'base'
 	$* &> /dev/null &
-}
-
-banish-cookies ()
-{
-    about 'redirect .adobe and .macromedia files to /dev/null'
-    group 'base'
-	rm -r ~/.macromedia ~/.adobe
-	ln -s /dev/null ~/.adobe
-	ln -s /dev/null ~/.macromedia
 }
 
 usage ()

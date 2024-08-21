@@ -1,6 +1,18 @@
 cite about-alias
 about-alias 'general aliases'
 
+alias bi='bash-it'
+alias bisa='bash-it show aliases'
+alias bisall='bash-it show aliases; bash-it show completions; bash-it show plugins'
+alias bisc='bash-it show completions'
+alias bisp='bash-it show plugins'
+alias biep='bash-it enable plugin'
+alias biea='bash-it enable alias'
+alias biec='bash-it enable completion'
+
+alias bp='source ~/.bash_profile'
+alias ebi='cd ~/.bash_it; pstorm .'
+
 # List directory contents
 alias sl=ls
 alias la='ls -AFG'       # show hidden
