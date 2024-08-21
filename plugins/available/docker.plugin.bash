@@ -184,6 +184,11 @@ function drainNode {
     node_id=$1
 
     echo ""
+    echo "Current status"
+    docker node ps "$node_id" --format "table {{.ID}}\t{{.Name}}\t{{.DesiredState}}\t{{.CurrentState}}\t{{.Error}}"
+    echo ""
+
+    echo ""
     read -p "Are you sure you want to move all running containers away from this node? [yN]" choice
     case "${choice:0:1}" in
         y|Y )
@@ -269,6 +274,7 @@ function activateNode {
     echo ""
 }
 
+# List the running containers on a specific node in a Docker Swarm
 function dnps {
     node_query="$1"
     shift 1
@@ -297,6 +303,8 @@ function dnps {
             echo "$((i + 1)). ${matching_nodes[i]}"
         done
 
+        echo "* Show all"
+
         while true; do
             read -p "Choose the number of the node you want to inspect: " choice
             if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 1 ] && [ "$choice" -le "$count" ]; then
@@ -305,6 +313,15 @@ function dnps {
                 echo "Executing: docker node ps $node_name"
                 docker node ps "$node_name"
                 break
+            elif [[ "$choice" == '*' ]]; then
+              for node in "${matching_nodes[@]}"; do
+                echo ""
+                echo "-----------------------------------------------"
+                echo "Node: $node"
+                echo "-----------------------------------------------"
+                docker node ps "$node"
+                break
+              done
             elif [[ "$choice" =~ ^[qQ]+$ ]]; then
                 echo "Exiting the script."
                 break
