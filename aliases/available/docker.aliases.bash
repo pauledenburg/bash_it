@@ -30,6 +30,7 @@ alias dcup='docker compose up'
 
 # docker swarm
 alias dsls='docker service ls'
+alias dnls='docker node ls'
 
 # kubernetes
 alias mk='minikube'
