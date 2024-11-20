@@ -2,8 +2,8 @@ cite 'about-alias'
 about-alias 'common docker abbreviations'
 
 # Aliases
-alias dps='docker ps'
-alias dpsa='docker ps -a'
+alias dps='docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"'
+alias dpsa='docker ps -a --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"'
 alias di='docker images'
 alias db='docker build'
 alias dimg='docker images'

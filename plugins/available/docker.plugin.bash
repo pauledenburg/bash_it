@@ -58,7 +58,7 @@ function docker-bash-root {
 function deit {
     service_query="$1"
     shift 1
-    container_command="${@:-bash}"  # Default to 'bash' if no command is provided
+    container_command="${@:-sh}"  # Default to 'sh' if no command is provided
 
     # Get the list of matching container names
     matching_services=($(docker ps --format '{{.Names}}' | grep "$service_query"))
