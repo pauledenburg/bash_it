@@ -16,8 +16,8 @@ sphp ()
     homebrew_path=$(brew --prefix)
     brew_prefix=$(brew --prefix | sed 's#/#\\\/#g')
     
-    brew_array=("8.1" "8.2" "8.3")
-    php_array=("php@8.1" "php@8.2" "php@8.3")
+    brew_array=("8.1" "8.2" "8.3" "8.4" "8.5")
+    php_array=("php@8.1" "php@8.2" "php@8.3" "php@8.4" "php@8.5")
     php_installed_array=()
     php_version="php@$1"
     php_opt_path="$brew_prefix\/opt\/"
@@ -279,7 +279,7 @@ buf ()
 
 rmcrap ()
 {
- find . -maxdepth 2 -name "ANTI-EIN" -o -name "*.url" -o -name "*.nzb" -o -name "*.nfo" -o -name "*.sfv" -o -name "*.srr" -o -name "*sample*" -o -name "*.rev" -o -name "*.URL" -o -name "*.DS_Store" -o -name "*Video Player*" -o -regextype sed -regex '.*/[A-Z0-9]\{7\}\.jpg' -o -empty | egrep -v '_UNPACK_' 
+ find . -maxdepth 2 -name "ANTI-EIN" -o -name "*.url" -o -name "*.nzb" -o -name "*.nfo" -o -name "*.sfv" -o -name "*.srr" -o -name "*sample*" -o -name "*.rev" -o -name "*.URL" -o -name "*.DS_Store" -o -name "*Video Player*" -regex '.*/[A-Z0-9]\{7\}\.jpg' -o -empty | egrep -v '_UNPACK_' 
  read -p "want to remove files with extensions url, nzb, nfo, 'Video Player', random iamges and empty directories? [Yn] " decision
 
  case "$decision" in
@@ -288,7 +288,7 @@ rmcrap ()
    return;
    ;;
   *)
-    find . -maxdepth 2 -name "ANTI-EIN" -o -name "*.url" -o -name "*.nzb" -o -name "*.nfo" -o -name "*.sfv" -o -name "*.srr" -o -name "*sample*" -o -name "*.rev" -o -name "*.URL" -o -name "*.DS_Store" -o -name "*Video Player*" -o -regextype sed -regex '.*/[A-Z0-9]\{7\}\.jpg' -o -empty | egrep -v '_UNPACK_' | \
+    find . -maxdepth 2 -name "ANTI-EIN" -o -name "*.url" -o -name "*.nzb" -o -name "*.nfo" -o -name "*.sfv" -o -name "*.srr" -o -name "*sample*" -o -name "*.rev" -o -name "*.URL" -o -name "*.DS_Store" -o -name "*Video Player*" -regex '.*/[A-Z0-9]\{7\}\.jpg' -o -empty | egrep -v '_UNPACK_' | \
     while read file; do
      echo "$file";
      rm -r "$file";
