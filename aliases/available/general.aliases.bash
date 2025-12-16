@@ -83,3 +83,5 @@ alias pstorm='open -a PhpStorm'
 
 alias p='php -dxdebug.mode=off vendor/bin/pest --parallel'
 alias pf='php -dxdebug.mode=off vendor/bin/pest --filter'
+
+alias cld=claude
